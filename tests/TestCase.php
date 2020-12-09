@@ -4,10 +4,13 @@ namespace Binarcode\LaravelDeveloper\Tests;
 
 use Binarcode\LaravelDeveloper\LaravelDeveloperServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
+    use RefreshDatabase;
+
     public function setUp(): void
     {
         parent::setUp();
@@ -33,9 +36,9 @@ class TestCase extends Orchestra
             'prefix' => '',
         ]);
 
-        /*
+
         include_once __DIR__.'/../database/migrations/create_laravel_developer_table.php.stub';
-        (new \CreatePackageTable())->up();
-        */
+        (new \CreateLaravelDeveloperTable())->up();
+
     }
 }

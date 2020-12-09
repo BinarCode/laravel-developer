@@ -4,6 +4,7 @@ namespace Binarcode\LaravelDeveloper\Models;
 
 use Binarcode\LaravelDeveloper\Models\Concerns\WithCreator;
 use Binarcode\LaravelDeveloper\Models\Concerns\WithUuid;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -23,6 +24,8 @@ class ExceptionLog extends Model
     use HasFactory,
         WithUuid,
         WithCreator;
+
+    protected $table = 'exception_logs';
 
     protected $primaryKey = 'uuid';
 
@@ -78,5 +81,20 @@ class ExceptionLog extends Model
     public function getUrl()
     {
         return null;
+    }
+
+    public static function prune(DateTimeInterface $before)
+    {
+        $query = static::query()->where('created_at', '<', $before);
+
+        $totalDeleted = 0;
+
+        do {
+            $deleted = $query->take(1000)->delete();
+
+            $totalDeleted += $deleted;
+        } while ($deleted !== 0);
+
+        return $totalDeleted;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Binarcode\LaravelDeveloper;
 
-use Binarcode\LaravelDeveloper\Commands\LaravelDeveloperCommand;
+use Binarcode\LaravelDeveloper\Commands\PruneCommand;
 use Illuminate\Support\ServiceProvider;
 
 class LaravelDeveloperServiceProvider extends ServiceProvider
@@ -14,10 +14,6 @@ class LaravelDeveloperServiceProvider extends ServiceProvider
                 __DIR__ . '/../config/laravel-developer.php' => config_path('developer.php'),
             ], 'developer-config');
 
-            $this->publishes([
-                __DIR__ . '/../resources/views' => base_path('resources/views/vendor/laravel-developer'),
-            ], 'views');
-
             $migrationFileName = 'create_laravel_developer_table.php';
             if (! $this->migrationFileExists($migrationFileName)) {
                 $this->publishes([
@@ -26,11 +22,9 @@ class LaravelDeveloperServiceProvider extends ServiceProvider
             }
 
             $this->commands([
-                LaravelDeveloperCommand::class,
+                PruneCommand::class,
             ]);
         }
-
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'laravel-developer');
     }
 
     public function register()
