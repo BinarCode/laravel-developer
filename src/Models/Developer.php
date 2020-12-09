@@ -49,5 +49,3 @@ class Developer
         static::$notifyUsing = $notificator;
     }
 }
-
-

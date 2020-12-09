@@ -28,7 +28,7 @@ class DevNotification extends Notification implements ShouldQueue
     {
         return tap(
             (
-            (new SlackMessage())
+                (new SlackMessage())
                 ->from(env('APP_NAME'))
                 ->content($this->notificationDto->message)
             ),
