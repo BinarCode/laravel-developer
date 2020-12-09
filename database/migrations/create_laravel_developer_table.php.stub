@@ -8,12 +8,20 @@ class CreateLaravelDeveloperTable extends Migration
 {
     public function up()
     {
-        Schema::create('laravel-developer_table', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('exception_logs', function (Blueprint $table) {
+           $table->uuid('uuid');
 
-            // add fields
+           $table->string('name')->nullable();
+           $table->text('payload')->nullable();
+           $table->text('exception')->nullable();
 
-            $table->timestamps();
+           $table->bigInteger('created_by')->nullable();
+           $table->timestamps();
         });
+    }
+
+    public function down()
+    {
+        Schema::dropIfExists('exception_logs');
     }
 }

@@ -11,8 +11,8 @@ class LaravelDeveloperServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../config/laravel-developer.php' => config_path('laravel-developer.php'),
-            ], 'config');
+                __DIR__ . '/../config/laravel-developer.php' => config_path('developer.php'),
+            ], 'developer-config');
 
             $this->publishes([
                 __DIR__ . '/../resources/views' => base_path('resources/views/vendor/laravel-developer'),
@@ -22,7 +22,7 @@ class LaravelDeveloperServiceProvider extends ServiceProvider
             if (! $this->migrationFileExists($migrationFileName)) {
                 $this->publishes([
                     __DIR__ . "/../database/migrations/{$migrationFileName}.stub" => database_path('migrations/' . date('Y_m_d_His', time()) . '_' . $migrationFileName),
-                ], 'migrations');
+                ], 'developer-migrations');
             }
 
             $this->commands([
