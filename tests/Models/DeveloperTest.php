@@ -13,7 +13,7 @@ class DeveloperTest extends TestCase
 {
     public function test_can_intercept_sender()
     {
-        Developer::notifyUsing(function($argument) {
+        Developer::notifyUsing(function ($argument) {
             $this->assertInstanceOf(
                 DevNotification::class,
                 $argument
