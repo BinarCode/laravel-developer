@@ -21,9 +21,9 @@ use Throwable;
  */
 class ExceptionLog extends Model
 {
-    use HasFactory,
-        WithUuid,
-        WithCreator;
+    use HasFactory;
+    use WithUuid;
+    use WithCreator;
 
     protected $table = 'exception_logs';
 

@@ -3,7 +3,6 @@
 namespace Binarcode\LaravelDeveloper\Models\Concerns;
 
 use Binarcode\LaravelDeveloper\Dtos\DevNotificationDto;
-use Binarcode\LaravelDeveloper\Models\Developer;
 use Binarcode\LaravelDeveloper\Models\ExceptionLog;
 use Binarcode\LaravelDeveloper\Notifications\DevNotification;
 use Illuminate\Notifications\Notification;
@@ -48,6 +47,6 @@ trait InteractsWithDeveloper
 
     public static function notifyUsing(callable $notificator)
     {
-       static::$notifyUsing = $notificator;
+        static::$notifyUsing = $notificator;
     }
 }
