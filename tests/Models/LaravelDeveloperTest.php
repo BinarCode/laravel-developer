@@ -2,18 +2,20 @@
 
 namespace Binarcode\LaravelDeveloper\Tests\Models;
 
-use Binarcode\LaravelDeveloper\Models\Developer;
+use Binarcode\LaravelDeveloper\LaravelDeveloper;
 use Binarcode\LaravelDeveloper\Models\ExceptionLog;
 use Binarcode\LaravelDeveloper\Notifications\DevNotification;
 use Binarcode\LaravelDeveloper\Tests\Mock\PayloadMock;
 use Binarcode\LaravelDeveloper\Tests\TestCase;
 use Exception;
+use Illuminate\Notifications\AnonymousNotifiable;
+use Illuminate\Support\Facades\Notification;
 
-class DeveloperTest extends TestCase
+class LaravelDeveloperTest extends TestCase
 {
     public function test_can_intercept_sender()
     {
-        Developer::notifyUsing(function ($argument) {
+        LaravelDeveloper::notifyUsing(function ($argument) {
             $this->assertInstanceOf(
                 DevNotification::class,
                 $argument
@@ -25,6 +27,17 @@ class DeveloperTest extends TestCase
             $payload = new PayloadMock()
         )->notifyDevs();
 
-        Developer::notifyUsing(null);
+        LaravelDeveloper::notifyUsing(null);
+    }
+
+    public function test_can_notify_any_exception()
+    {
+        Notification::fake();
+
+        LaravelDeveloper::exceptionToDevSlack(
+            new Exception('wew')
+        );
+
+        Notification::assertSentTo(new AnonymousNotifiable, DevNotification::class);
     }
 }

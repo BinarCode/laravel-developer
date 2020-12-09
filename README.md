@@ -56,7 +56,17 @@ return [
 
 ## Usage
 
-In any place you want to catch and log an exception, you can do something like this: 
+The simplies way to use the package is to send an exception to the slack:
+
+```php
+LaravelDeveloper::exceptionToDevSlack(
+    new \Exception('wew')
+);
+```
+
+### Persist exception
+
+If you want to persist the exception into the database, in any place you want to catch and log an exception, you can do something like this: 
 
 ```php
 use Binarcode\LaravelDeveloper\Models\ExceptionLog;
@@ -103,7 +113,6 @@ ExceptionLog::makeFromException($e)
 ->notifyDevs();
 ```
 
-
 ### Using a custom notification
 
 However, Laravel Developer package provides you the `Binarcode\LaravelDeveloper\Notifications\DevNotification` notification, you are free to use a completely new one by configuring the `developer.notification` configuration: 
@@ -115,11 +124,11 @@ However, Laravel Developer package provides you the `Binarcode\LaravelDeveloper\
 If you want to take the full control over the notification sending, you can add this in one of your service providers:
 
 ```php
-use Binarcode\LaravelDeveloper\Models\Developer;
+use Binarcode\LaravelDeveloper\LaravelDeveloper;
 use Binarcode\LaravelDeveloper\Notifications\DevNotification;
 use Illuminate\Support\Facades\Notification;
 
-Developer::notifyUsing(function (DevNotification $argument) {
+LaravelDeveloper::notifyUsing(function (DevNotification $argument) {
     // Here you can do anything you want(even send an email), for instance we provide here
     // an example of how you can send an anonymous notification.
     Notification::route('slack', config('developer.slack_dev_hook'))->notify(

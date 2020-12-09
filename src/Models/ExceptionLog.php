@@ -2,6 +2,7 @@
 
 namespace Binarcode\LaravelDeveloper\Models;
 
+use Binarcode\LaravelDeveloper\LaravelDeveloper;
 use Binarcode\LaravelDeveloper\Models\Concerns\WithCreator;
 use Binarcode\LaravelDeveloper\Models\Concerns\WithUuid;
 use DateTimeInterface;
@@ -78,7 +79,7 @@ class ExceptionLog extends Model
     {
         $this->save();
 
-        Developer::exceptionLogToDevSlack($this);
+        LaravelDeveloper::exceptionLogToDevSlack($this);
 
         return $this;
     }

@@ -2,7 +2,7 @@
 
 namespace Binarcode\LaravelDeveloper\Tests\Notifications;
 
-use Binarcode\LaravelDeveloper\Models\Developer;
+use Binarcode\LaravelDeveloper\LaravelDeveloper;
 use Binarcode\LaravelDeveloper\Models\ExceptionLog;
 use Binarcode\LaravelDeveloper\Notifications\DevNotification;
 use Binarcode\LaravelDeveloper\Tests\Mock\CustomNotificationMock;
@@ -31,7 +31,7 @@ class DevNotificationTest extends TestCase
     {
         Notification::fake();
 
-        Developer::notifyUsing(function (DevNotification $argument) {
+        LaravelDeveloper::notifyUsing(function (DevNotification $argument) {
             NotificationFacade::route('slack', config('developer.slack_dev_hook'))->notify(
                 new CustomNotificationMock($argument->notificationDto)
             );
@@ -44,7 +44,7 @@ class DevNotificationTest extends TestCase
 
         Notification::assertSentTo(new AnonymousNotifiable, CustomNotificationMock::class);
 
-        Developer::notifyUsing(null);
+        LaravelDeveloper::notifyUsing(null);
     }
 
     public function test_can_set_custom_config_notification()
