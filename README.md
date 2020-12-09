@@ -30,6 +30,8 @@ php artisan vendor:publish --provider="Binarcode\LaravelDeveloper\LaravelDevelop
 This is the contents of the published config file:
 
 ```php
+<?php
+
 return [
     /**
      * The slack incoming webhook to send notifications.
@@ -44,6 +46,11 @@ return [
      * We will replace the uuid with the exception log uuid.
      */
     'exception_log_base_url' => env('DEV_EXCEPTION_LOG_BASE_URL'),
+
+    /**
+     * The default notification class used to send notifications.
+     */
+    'notification' => \Binarcode\LaravelDeveloper\Notifications\DevNotification::class,
 ];
 ```
 
@@ -99,7 +106,13 @@ ExceptionLog::makeFromException($e)
 
 ### Using a custom notification
 
-However, Laravel Developer package provides you the `Binarcode\LaravelDeveloper\Notifications\DevNotification` notification, you are free to use a completely new one by adding this in one of your service providers:
+However, Laravel Developer package provides you the `Binarcode\LaravelDeveloper\Notifications\DevNotification` notification, you are free to use a completely new one by configuring the `developer.notification` configuration: 
+ 
+ ```php
+'notification': CustomNotification::class,
+```
+ 
+If you want to take the full control over the notification sending, you can add this in one of your service providers:
 
 ```php
 use Binarcode\LaravelDeveloper\Models\Developer;

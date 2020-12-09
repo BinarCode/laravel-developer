@@ -28,14 +28,18 @@ class Developer
 
     public static function exceptionToDevSlack(Throwable $t)
     {
-        static::notifyDev(new DevNotification(
+        $class = config('developer.notification');
+
+        static::notifyDev(new $class(
             DevNotificationDto::makeFromException($t)
         ));
     }
 
     public static function exceptionLogToDevSlack(ExceptionLog $log)
     {
-        static::notifyDev(new DevNotification(
+        $class = config('developer.notification');
+
+        static::notifyDev(new $class(
             DevNotificationDto::makeFromExceptionLog($log)
         ));
     }

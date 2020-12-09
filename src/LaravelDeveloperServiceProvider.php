@@ -3,6 +3,7 @@
 namespace Binarcode\LaravelDeveloper;
 
 use Binarcode\LaravelDeveloper\Commands\PruneCommand;
+use Binarcode\LaravelDeveloper\Notifications\DevNotification;
 use Illuminate\Support\ServiceProvider;
 
 class LaravelDeveloperServiceProvider extends ServiceProvider
@@ -30,6 +31,7 @@ class LaravelDeveloperServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/laravel-developer.php', 'laravel-developer');
+
     }
 
     public static function migrationFileExists(string $migrationFileName): bool

@@ -46,4 +46,20 @@ class DevNotificationTest extends TestCase
 
         Developer::notifyUsing(null);
     }
+
+    public function test_can_set_custom_config_notification()
+    {
+        Notification::fake();
+
+        config([
+            'developer.notification' => CustomNotificationMock::class,
+        ]);
+
+        ExceptionLog::makeFromException(
+            new Exception('wrong'),
+            $payload = new PayloadMock()
+        )->notifyDevs();
+
+        Notification::assertSentTo(new AnonymousNotifiable, CustomNotificationMock::class);
+    }
 }
