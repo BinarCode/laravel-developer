@@ -49,14 +49,21 @@ class DevNotificationDto implements JsonSerializable
         return $this->attachment_content ?? $this->attachment_title;
     }
 
-    public static function makeFromException(Throwable $t)
+    public static function makeWithMessage(string $message): self
+    {
+        return new static([
+            'message' => $message,
+        ]);
+    }
+
+    public static function makeFromException(Throwable $t): self
     {
         return new static([
             'message' => $t->getMessage(),
         ]);
     }
 
-    public static function makeFromExceptionLog(ExceptionLog $log)
+    public static function makeFromExceptionLog(ExceptionLog $log): self
     {
         return new static([
             'message' => $log->name,

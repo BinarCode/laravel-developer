@@ -56,11 +56,28 @@ return [
 
 ## Usage
 
+### Send exception to slack
+
 The simplies way to use the package is to send an exception to the slack:
 
 ```php
+use Binarcode\LaravelDeveloper\LaravelDeveloper;
+
 LaravelDeveloper::exceptionToDevSlack(
     new \Exception('wew')
+);
+```
+
+### Send anything to slack
+
+Obviously, you can send any kind of message to the slack channel. The `toDevSlack` method accept an instance of `DevNotificationDto`:
+
+```php
+use Binarcode\LaravelDeveloper\LaravelDeveloper;
+use Binarcode\LaravelDeveloper\Dtos\DevNotificationDto;
+
+LaravelDeveloper::toDevSlack(
+    DevNotificationDto::makeWithMessage('hey')
 );
 ```
 
