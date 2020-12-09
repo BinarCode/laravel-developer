@@ -2,8 +2,8 @@
 
 namespace Binarcode\LaravelDeveloper;
 
-use Illuminate\Support\ServiceProvider;
 use Binarcode\LaravelDeveloper\Commands\LaravelDeveloperCommand;
+use Illuminate\Support\ServiceProvider;
 
 class LaravelDeveloperServiceProvider extends ServiceProvider
 {
