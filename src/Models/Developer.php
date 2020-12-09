@@ -3,6 +3,7 @@
 namespace Binarcode\LaravelDeveloper\Models;
 
 use Binarcode\LaravelDeveloper\Dtos\DevNotificationDto;
+use Binarcode\LaravelDeveloper\Notifications\DevNotification;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Notification as NotificationFacade;
 use Throwable;
@@ -27,7 +28,7 @@ class Developer
 
     public static function exceptionToDevSlack(Throwable $t)
     {
-        $class = config('developer.notification');
+        $class = config('developer.notification', DevNotification::class);
 
         static::notifyDev(new $class(
             DevNotificationDto::makeFromException($t)
@@ -36,7 +37,7 @@ class Developer
 
     public static function exceptionLogToDevSlack(ExceptionLog $log)
     {
-        $class = config('developer.notification');
+        $class = config('developer.notification', DevNotification::class);
 
         static::notifyDev(new $class(
             DevNotificationDto::makeFromExceptionLog($log)
