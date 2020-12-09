@@ -1,11 +1,15 @@
 # Lightweight package to log slack exceptions.
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/binarcode/laravel-developer.svg?style=flat-square)](https://packagist.org/packages/binarcode/laravel-developer)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/binarcode/laravel-developer/run-tests?label=tests)](https://github.com/binarcode/laravel-developer/actions?query=workflow%3Arun-tests+branch%3Amaster)
-[![Total Downloads](https://img.shields.io/packagist/dt/binarcode/laravel-developer.svg?style=flat-square)](https://packagist.org/packages/binarcode/laravel-developer)
+<p align="center">
+<img src="https://laravel.com/assets/img/components/logo-sanctum.svg">
+</p>
 
-
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+<p align="center">
+<a href="https://github.com/binarcode/laravel-developer/actions"><img src="https://github.com/BinarCode/laravel-developer/workflows/Tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/binarcode/laravel-developer"><img src="https://img.shields.io/packagist/dt/binarcode/laravel-developer" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/binarcode/laravel-developer"><img src="https://img.shields.io/packagist/v/binarcode/laravel-developer" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/binarcode/laravel-developer"><img src="https://img.shields.io/packagist/l/binarcode/laravel-developer" alt="License"></a>
+</p>
 
 ## Installation
 
