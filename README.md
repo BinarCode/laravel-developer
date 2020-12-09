@@ -1,7 +1,7 @@
 # Lightweight package to log slack exceptions.
 
 <p align="center">
-<img src="https://laravel.com/assets/img/components/logo-sanctum.svg">
+<img src="https://raw.githubusercontent.com/BinarCode/laravel-developer/master/static/Laravel_Developer.png">
 </p>
 
 <p align="center">
