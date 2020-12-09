@@ -18,7 +18,7 @@ use Throwable;
  * @property-read string $identifier
  * @property string $name
  * @property array $exception
- * @property array $payload
+ * @property array|mixed $payload
  * @package App\Models
  */
 class ExceptionLog extends Model

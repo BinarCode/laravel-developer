@@ -29,6 +29,9 @@ class LaravelDeveloper
 
     public static function toDevSlack(DevNotificationDto $dto)
     {
+        /**
+         * @var string $class
+         */
         $class = config('developer.notification', DevNotification::class);
 
         static::notifyDev(new $class(
@@ -38,6 +41,9 @@ class LaravelDeveloper
 
     public static function exceptionToDevSlack(Throwable $t)
     {
+        /**
+         * @var string $class
+         */
         $class = config('developer.notification', DevNotification::class);
 
         static::notifyDev(new $class(
@@ -47,6 +53,9 @@ class LaravelDeveloper
 
     public static function exceptionLogToDevSlack(ExceptionLog $log)
     {
+        /**
+         * @var string $class
+         */
         $class = config('developer.notification', DevNotification::class);
 
         static::notifyDev(new $class(
