@@ -2,7 +2,6 @@
 
 namespace Binarcode\LaravelDeveloper\Tests\Mock;
 
-
 use JsonSerializable;
 
 class PayloadMock implements JsonSerializable

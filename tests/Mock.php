@@ -2,8 +2,6 @@
 
 namespace Binarcode\LaravelDeveloper\Tests;
 
-
 class Mock
 {
-
 }

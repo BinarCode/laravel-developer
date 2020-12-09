@@ -2,7 +2,6 @@
 
 namespace Binarcode\LaravelDeveloper\Tests\Models;
 
-
 use Binarcode\LaravelDeveloper\Models\ExceptionLog;
 use Binarcode\LaravelDeveloper\Tests\Mock\PayloadMock;
 use Binarcode\LaravelDeveloper\Tests\TestCase;
@@ -30,7 +29,7 @@ class ExceptionLogTest extends TestCase
 
         $this->assertDatabaseHas('exception_logs', [
             'name' => 'wrong',
-            'payload' => '{"message":"wew"}'
+            'payload' => '{"message":"wew"}',
         ]);
     }
 
@@ -43,7 +42,7 @@ class ExceptionLogTest extends TestCase
         $log = tap(ExceptionLog::makeFromException(
             new Exception('wrong'),
             $payload = new PayloadMock()
-        ), function(ExceptionLog $log) {
+        ), function (ExceptionLog $log) {
             $log->save();
         });
 
