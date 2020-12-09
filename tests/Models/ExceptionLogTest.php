@@ -34,6 +34,28 @@ class ExceptionLogTest extends TestCase
         ]);
     }
 
+    public function test_can_serialize_multiple_payloads()
+    {
+        ExceptionLog::makeFromException(
+            new Exception('wrong'),
+        )
+            ->addPayload(
+                $payload = new PayloadMock()
+            )
+            ->addPayload(
+                new PayloadMock()
+            )
+            ->save();
+
+        $this->assertDatabaseHas('exception_logs', [
+            'name' => 'wrong',
+            'payload' => json_encode([
+                $payload->jsonSerialize(),
+                $payload->jsonSerialize()
+            ])
+        ]);
+    }
+
     public function test_can_generate_link()
     {
         config([

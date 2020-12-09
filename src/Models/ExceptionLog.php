@@ -7,6 +7,7 @@ use Binarcode\LaravelDeveloper\Models\Concerns\WithUuid;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use JsonSerializable;
 use Throwable;
@@ -57,10 +58,13 @@ class ExceptionLog extends Model
 
     public function addPayload(JsonSerializable $payload): self
     {
-        $this->payload = array_merge(
-            $this->payload,
-            $payload->jsonSerialize()
-        );
+        if (is_null($this->payload)) {
+            $this->payload = [$payload->jsonSerialize()];
+
+            return $this;
+        }
+
+        $this->payload = collect($this->payload)->push($payload->jsonSerialize());
 
         return $this;
     }
