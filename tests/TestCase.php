@@ -39,6 +39,5 @@ class TestCase extends Orchestra
 
         include_once __DIR__.'/../database/migrations/create_laravel_developer_table.php.stub';
         (new \CreateLaravelDeveloperTable())->up();
-
     }
 }
