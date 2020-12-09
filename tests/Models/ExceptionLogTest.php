@@ -50,8 +50,8 @@ class ExceptionLogTest extends TestCase
             'name' => 'wrong',
             'payload' => json_encode([
                 $payload->jsonSerialize(),
-                $payload->jsonSerialize()
-            ])
+                $payload->jsonSerialize(),
+            ]),
         ]);
     }
 
