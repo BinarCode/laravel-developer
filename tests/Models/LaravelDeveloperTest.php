@@ -2,6 +2,7 @@
 
 namespace Binarcode\LaravelDeveloper\Tests\Models;
 
+use Binarcode\LaravelDeveloper\Dtos\DevNotificationDto;
 use Binarcode\LaravelDeveloper\LaravelDeveloper;
 use Binarcode\LaravelDeveloper\Models\ExceptionLog;
 use Binarcode\LaravelDeveloper\Notifications\DevNotification;
@@ -36,6 +37,17 @@ class LaravelDeveloperTest extends TestCase
 
         LaravelDeveloper::exceptionToDevSlack(
             new Exception('wew')
+        );
+
+        Notification::assertSentTo(new AnonymousNotifiable, DevNotification::class);
+    }
+
+    public function test_can_notify_any_dto()
+    {
+        Notification::fake();
+
+        LaravelDeveloper::toDevSlack(
+            DevNotificationDto::makeWithMessage('hey')
         );
 
         Notification::assertSentTo(new AnonymousNotifiable, DevNotification::class);

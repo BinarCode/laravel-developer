@@ -27,6 +27,15 @@ class LaravelDeveloper
         );
     }
 
+    public static function toDevSlack(DevNotificationDto $dto)
+    {
+        $class = config('developer.notification', DevNotification::class);
+
+        static::notifyDev(new $class(
+            $dto
+        ));
+    }
+
     public static function exceptionToDevSlack(Throwable $t)
     {
         $class = config('developer.notification', DevNotification::class);
