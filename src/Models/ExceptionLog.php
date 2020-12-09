@@ -79,9 +79,13 @@ class ExceptionLog extends Model
         return $this;
     }
 
-    public function getUrl()
+    public function getUrl(): ?string
     {
-        return null;
+        if (! config('developer.exception_log_base_url')) {
+            return null;
+        }
+
+        return Str::replaceArray('{uuid}', ['{uuid}' => $this->uuid,], config('developer.exception_log_base_url'));
     }
 
     public static function prune(DateTimeInterface $before)

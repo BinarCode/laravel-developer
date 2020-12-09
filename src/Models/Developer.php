@@ -13,7 +13,7 @@ class Developer
     /**
      * @var callable
      */
-    public static $notifyUsing;
+    protected static $notifyUsing;
 
     public static function notifyDev(Notification $notification)
     {
@@ -45,7 +45,7 @@ class Developer
         return config('developer.slack_dev_hook');
     }
 
-    public static function notifyUsing(callable $notificator)
+    public static function notifyUsing(?callable $notificator)
     {
         static::$notifyUsing = $notificator;
     }

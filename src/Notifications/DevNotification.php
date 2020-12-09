@@ -12,7 +12,7 @@ class DevNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    private DevNotificationDto $notificationDto;
+    public DevNotificationDto $notificationDto;
 
     public function __construct(DevNotificationDto $notificationDto)
     {
