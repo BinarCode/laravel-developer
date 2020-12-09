@@ -1,16 +1,16 @@
 {
-    "name": ":vendor_name/:package_name",
-    "description": ":package_description",
+    "name": "binarcode/laravel-developer",
+    "description": "Lightweight package to log slack exceptions.",
     "keywords": [
-        ":vendor_name",
-        ":package_name"
+        "binarcode",
+        "laravel-developer"
     ],
-    "homepage": "https://github.com/:vendor_name/:package_name",
+    "homepage": "https://github.com/binarcode/laravel-developer",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": ":author_email",
+            "name": "Eduard Lupacescu",
+            "email": "eduard.lupacescu@binarcode.com",
             "homepage": "https://spatie.be",
             "role": "Developer"
         }
@@ -26,13 +26,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Spatie\\Skeleton\\": "src",
-            "Spatie\\Skeleton\\Database\\Factories\\": "database/factories"
+            "Binarcode\\LaravelDeveloper\\": "src",
+            "Binarcode\\LaravelDeveloper\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Spatie\\Skeleton\\Tests\\": "tests"
+            "Binarcode\\LaravelDeveloper\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -46,10 +46,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Spatie\\Skeleton\\SkeletonServiceProvider"
+                "Binarcode\\LaravelDeveloper\\LaravelDeveloperServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "Spatie\\Skeleton\\SkeletonFacade"
+                "LaravelDeveloper": "Binarcode\\LaravelDeveloper\\LaravelDeveloperFacade"
             }
         }
     },
