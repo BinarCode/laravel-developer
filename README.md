@@ -61,7 +61,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [Eduard Lupacescu](https://github.com/EduardLupacescu)
+- [Eduard Lupacescu](https://github.com/binaryk)
 - [All Contributors](../../contributors)
 
 ## License
