@@ -5,8 +5,6 @@ namespace Binarcode\LaravelDeveloper\Tests\Console;
 use Binarcode\LaravelDeveloper\Commands\PruneCommand;
 use Binarcode\LaravelDeveloper\Models\ExceptionLog;
 use Binarcode\LaravelDeveloper\Tests\TestCase;
-use Laravel\Telescope\Storage\EntryModel;
-use Laravel\Telescope\Tests\FeatureTestCase;
 
 class PruneCommandTest extends TestCase
 {
