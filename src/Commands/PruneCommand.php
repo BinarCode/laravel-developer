@@ -13,6 +13,6 @@ class PruneCommand extends Command
 
     public function handle()
     {
-        $this->info(ExceptionLog::prune(now()->subHours($this->option('hours'))) . ' entries pruned.');
+        $this->info(ExceptionLog::prune(now()->subHours((int) $this->option('hours'))) . ' entries pruned.');
     }
 }
