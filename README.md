@@ -1,5 +1,6 @@
 # Lightweight package to log slack exceptions.
 
+
 <p align="center">
 <img src="https://raw.githubusercontent.com/BinarCode/laravel-developer/master/static/Laravel_Developer.png">
 </p>
@@ -158,6 +159,21 @@ LaravelDeveloper::notifyUsing(function (DevNotification $argument) {
 });
 ```
 
+
+### Log pruning
+
+Without pruning, the `exception_logs` table can accumulate records very quickly. To mitigate this, you should schedule the `dev:prune` Artisan command to run daily:
+
+```shell script
+$schedule->command('dev:prune')->daily();
+```
+
+By default, all entries older than 24 hours will be pruned. You may use the hours option when calling the command to determine how long to retain Developer data. For example, the following command will delete all records created over 48 hours ago:
+
+
+```shell script
+$schedule->command('dev:prune --hours=48')->daily();
+```
 
 ## Testing
 
