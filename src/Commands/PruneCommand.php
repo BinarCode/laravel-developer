@@ -2,7 +2,7 @@
 
 namespace Binarcode\LaravelDeveloper\Commands;
 
-use Binarcode\LaravelDeveloper\Models\ExceptionLog;
+use Binarcode\LaravelDeveloper\Repositories\ExceptionLogRepository;
 use Illuminate\Console\Command;
 
 class PruneCommand extends Command
@@ -11,8 +11,8 @@ class PruneCommand extends Command
 
     protected $description = 'Prune stale entries from the Developer logs.';
 
-    public function handle()
+    public function handle(ExceptionLogRepository $repository)
     {
-        $this->info(ExceptionLog::prune(now()->subHours((int) $this->option('hours'))) . ' entries pruned.');
+        $this->info($repository->prune(now()->subHours((int) $this->option('hours'))) . ' entries pruned.');
     }
 }

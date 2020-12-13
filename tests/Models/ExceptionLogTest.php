@@ -73,4 +73,10 @@ class ExceptionLogTest extends TestCase
             $log->getUrl()
         );
     }
+
+    public function test_can_have_configuration()
+    {
+//        config(['developer.exception_log_model' => class exte])
+
+    }
 }

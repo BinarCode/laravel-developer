@@ -19,4 +19,9 @@ return [
      * The default notification class used to send notifications.
      */
     'notification' => \Binarcode\LaravelDeveloper\Notifications\DevNotification::class,
+
+    /**
+     * Class used to manage exception logs.
+     */
+    'exception_log_model' => \Binarcode\LaravelDeveloper\Models\ExceptionLog::class,
 ];

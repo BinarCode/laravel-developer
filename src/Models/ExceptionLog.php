@@ -91,19 +91,4 @@ class ExceptionLog extends Model
 
         return Str::replaceArray('{uuid}', ['{uuid}' => $this->uuid,], config('developer.exception_log_base_url'));
     }
-
-    public static function prune(DateTimeInterface $before)
-    {
-        $query = static::query()->where('created_at', '<', $before);
-
-        $totalDeleted = 0;
-
-        do {
-            $deleted = $query->take(1000)->delete();
-
-            $totalDeleted += $deleted;
-        } while ($deleted !== 0);
-
-        return $totalDeleted;
-    }
 }

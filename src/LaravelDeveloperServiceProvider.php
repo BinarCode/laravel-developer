@@ -3,7 +3,9 @@
 namespace Binarcode\LaravelDeveloper;
 
 use Binarcode\LaravelDeveloper\Commands\PruneCommand;
+use Binarcode\LaravelDeveloper\Models\ExceptionLog;
 use Illuminate\Support\ServiceProvider;
+use Spatie\MediaLibrary\MediaCollections\MediaRepository;
 
 class LaravelDeveloperServiceProvider extends ServiceProvider
 {
@@ -29,7 +31,11 @@ class LaravelDeveloperServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/laravel-developer.php', 'laravel-developer');
+        $this->mergeConfigFrom(__DIR__ . '/../config/laravel-developer.php', 'developer');
+
+        $this->app->singleton(ExceptionLog::class, function () {
+            return config('laravel-developer.exception_log_model', ExceptionLog::class);
+        });
     }
 
     public static function migrationFileExists(string $migrationFileName): bool
