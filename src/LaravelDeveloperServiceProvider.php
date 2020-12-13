@@ -5,7 +5,6 @@ namespace Binarcode\LaravelDeveloper;
 use Binarcode\LaravelDeveloper\Commands\PruneCommand;
 use Binarcode\LaravelDeveloper\Models\ExceptionLog;
 use Illuminate\Support\ServiceProvider;
-use Spatie\MediaLibrary\MediaCollections\MediaRepository;
 
 class LaravelDeveloperServiceProvider extends ServiceProvider
 {
