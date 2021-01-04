@@ -189,13 +189,13 @@ measure_memory(function() {
 Or: 
 
 ```php
-$timing = \Binarcode\LaravelDeveloper\Profiling\ServerTiming::startWithoutKey();
+$memory = \Binarcode\LaravelDeveloper\Profiling\ServerMemory::measure();
 
-sleep(1);
+// some code memory consuming
 
-$timing->stopAllUnfinishedEvents();
+$memory->stop();
 
-$timing->getDuration();
+$memory->getMemory();
 ```
 
 And time measure:
@@ -209,13 +209,13 @@ measure_timing(function() {
 Or: 
 
 ```php
-$memory = \Binarcode\LaravelDeveloper\Profiling\ServerMemory::measure();
+$timing = \Binarcode\LaravelDeveloper\Profiling\ServerTiming::startWithoutKey();
 
-// some code memory consuming
+sleep(1);
 
-$memory->stop();
+$timing->stopAllUnfinishedEvents();
 
-$memory->getMemory();
+$timing->getDuration();
 ```
 
 ## Testing
