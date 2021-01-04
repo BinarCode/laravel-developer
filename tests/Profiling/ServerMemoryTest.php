@@ -3,7 +3,6 @@
 namespace Binarcode\LaravelDeveloper\Tests\Profiling;
 
 use Binarcode\LaravelDeveloper\Profiling\ServerMemory;
-use Binarcode\LaravelDeveloper\Profiling\ServerTiming;
 use Binarcode\LaravelDeveloper\Tests\TestCase;
 use Illuminate\Support\Collection;
 
@@ -28,7 +27,5 @@ class ServerMemoryTest extends TestCase
             1,
             round($memory->getMemory())
         );
-
     }
-
 }

@@ -22,7 +22,5 @@ class ServerTimingTest extends TestCase
             1,
             (int)$timing->getDuration()
         );
-
     }
-
 }
