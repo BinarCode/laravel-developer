@@ -41,7 +41,7 @@ class ServerTiming
         return $this->stop($key);
     }
 
-    public function start(string $key)
+    public function start(string $key = 'measure')
     {
         $this->stopwatch->start($key);
 
