@@ -18,7 +18,9 @@
     "require": {
         "php": "^7.4|^8.0",
         "illuminate/contracts": "^8.0",
-        "laravel/slack-notification-channel": "^2.3"
+        "illuminate/support": "^7.0|^8.0",
+        "laravel/slack-notification-channel": "^2.3",
+        "symfony/stopwatch": "^3.4"
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",
@@ -29,7 +31,10 @@
         "psr-4": {
             "Binarcode\\LaravelDeveloper\\": "src",
             "Binarcode\\LaravelDeveloper\\Database\\Factories\\": "database/factories"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

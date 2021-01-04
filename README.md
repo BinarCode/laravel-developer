@@ -175,6 +175,49 @@ By default, all entries older than 24 hours will be pruned. You may use the hour
 $schedule->command('dev:prune --hours=48')->daily();
 ```
 
+
+## Profiling
+
+As a developer sometimes you have to measure the memory usage or time consumed for such action. Laravel Developer helps you to do so: 
+
+```php
+measure_memory(function() {
+    // some code
+});
+```
+
+Or: 
+
+```php
+$timing = \Binarcode\LaravelDeveloper\Profiling\ServerTiming::startWithoutKey();
+
+sleep(1);
+
+$timing->stopAllUnfinishedEvents();
+
+$timing->getDuration();
+```
+
+And time measure:
+
+```php
+measure_timing(function() {
+    // some code
+})
+```
+
+Or: 
+
+```php
+$memory = \Binarcode\LaravelDeveloper\Profiling\ServerMemory::measure();
+
+// some code memory consuming
+
+$memory->stop();
+
+$memory->getMemory();
+```
+
 ## Testing
 
 ``` bash
