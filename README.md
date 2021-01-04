@@ -186,12 +186,36 @@ measure_memory(function() {
 });
 ```
 
+Or: 
+
+```php
+$timing = \Binarcode\LaravelDeveloper\Profiling\ServerTiming::startWithoutKey();
+
+sleep(1);
+
+$timing->stopAllUnfinishedEvents();
+
+$timing->getDuration();
+```
+
 And time measure:
 
 ```php
 measure_timing(function() {
     // some code
 })
+```
+
+Or: 
+
+```php
+$memory = \Binarcode\LaravelDeveloper\Profiling\ServerMemory::measure();
+
+// some code memory consuming
+
+$memory->stop();
+
+$memory->getMemory();
 ```
 
 ## Testing
