@@ -24,6 +24,22 @@ class DevAuthMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+      $user = $this->validate($request, $next);
+
+        Auth::setUser($user);
+
+        return $next($request);
+    }
+
+    public static function resolveUserUsing(Closure $resolveUser): string
+    {
+        static::$resolveUser = $resolveUser;
+
+        return static::class;
+    }
+
+    protected function validate(Request $request, Closure $next): ?Authenticatable
+    {
         if (! App::environment('local')) {
             return $next($request);
         }
@@ -41,17 +57,10 @@ class DevAuthMiddleware
             $user = $class::query()->first();
         }
 
-        if ($user instanceof Authenticatable) {
-            Auth::setUser($user);
+        if (! ($user instanceof Authenticatable)) {
+            return $next($request);
         }
 
-        return $next($request);
-    }
-
-    public static function resolveUserUsing(Closure $resolveUser): string
-    {
-        static::$resolveUser = $resolveUser;
-
-        return static::class;
+        return $user;
     }
 }
