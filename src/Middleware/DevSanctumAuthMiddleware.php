@@ -62,8 +62,10 @@ class DevSanctumAuthMiddleware
         return $next($request);
     }
 
-    public static function resolveUserUsing(Closure $resolveUser)
+    public static function resolveUserUsing(Closure $resolveUser): string
     {
         static::$resolveUser = $resolveUser;
+
+        return static::class;
     }
 }
