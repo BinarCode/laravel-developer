@@ -219,7 +219,7 @@ $timing->getDuration();
 ```
 
 
-## Sanctum dev auth
+## Dev auth
 
 Each `api` has authentication, and testing it via HTTP Client (ie postman) we spend a lot of time to login users and copy the token, put in the next request and so on. Well now Laravel Developer provides an easy way to authenticate users in `local` env using `testing` token:
 
@@ -228,31 +228,36 @@ Each `api` has authentication, and testing it via HTTP Client (ie postman) we sp
 
 'api' => [
     //...
-    \Binarcode\LaravelDeveloper\Middleware\DevSanctumAuthMiddleware::class,
+    \Binarcode\LaravelDeveloper\Middleware\DevAuthMiddleware::class,
 ]
 ```
 
 And send the request with the `Authorization` header value `testing`. 
 
-Note: Make sure the `DevSanctumAuthMiddleware` is placed before the `api` middleware.
+Note: Make sure the `DevAuthMiddleware` is placed before the `api` middleware.
 
 ### Customize resolved user
 
 By default, the first entry (usually user) from your config model `app.providers.users.model` will be used, however, you can customize that.
 
-In any of yours service providers, or in the same place you inject the `DevSanctumAuthMiddleware` you can provide a callback which resolves the user instance:
+In any of yours service providers, or in the same place you inject the `DevAuthMiddleware` you can provide a callback which resolves the user instance:
 
 ```php
 use App\Models\User;
-use Binarcode\LaravelDeveloper\Middleware\DevSanctumAuthMiddleware;
+use Binarcode\LaravelDeveloper\Middleware\DevAuthMiddleware;
 
 'middleware' => [
-    DevSanctumAuthMiddleware::resolveUserUsing(function() {
+    DevAuthMiddleware::resolveUserUsing(function() {
         return User::first();
     });
     'api',
 ],
 ```
+
+### Changing Bearer
+
+If you're using laravel sanctum, and want to explicitely use / generate a Bearer for the resolved user, you can use the `\Binarcode\LaravelDeveloper\Middleware\DevAuthMiddleware::class` instead, which follow the same syntax as the `DevAuthMiddleware`.
+
 ## Testing
 
 ``` bash

@@ -29,7 +29,7 @@ class LaravelDeveloperServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/laravel-developer.php', 'laravel-developer');
+        $this->mergeConfigFrom(__DIR__ . '/../config/laravel-developer.php', 'developer');
     }
 
     public static function migrationFileExists(string $migrationFileName): bool

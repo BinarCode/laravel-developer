@@ -4,7 +4,7 @@ namespace Binarcode\LaravelDeveloper\Tests\Fixtures;
 
 use Laravel\Sanctum\PersonalAccessToken;
 
-class User
+class User extends \Illuminate\Foundation\Auth\User
 {
     use \Laravel\Sanctum\HasApiTokens;
 

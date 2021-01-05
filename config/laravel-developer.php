@@ -19,4 +19,8 @@ return [
      * The default notification class used to send notifications.
      */
     'notification' => \Binarcode\LaravelDeveloper\Notifications\DevNotification::class,
+
+    'auth' => [
+        'bearer' => 'testing',
+    ],
 ];

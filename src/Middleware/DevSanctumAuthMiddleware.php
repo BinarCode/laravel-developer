@@ -6,20 +6,8 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
-class DevSanctumAuthMiddleware
+class DevSanctumAuthMiddleware extends DevAuthMiddleware
 {
-    /**
-     * @var Closure
-     */
-    public static $resolveUser;
-
-    /**
-     * Handle an incoming request.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
-     * @return mixed
-     */
     public function handle(Request $request, Closure $next)
     {
         if (! App::environment('local')) {
@@ -57,12 +45,5 @@ class DevSanctumAuthMiddleware
         ]);
 
         return $next($request);
-    }
-
-    public static function resolveUserUsing(Closure $resolveUser): string
-    {
-        static::$resolveUser = $resolveUser;
-
-        return static::class;
     }
 }
