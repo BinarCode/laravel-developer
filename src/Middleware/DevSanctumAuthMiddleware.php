@@ -5,7 +5,6 @@ namespace Binarcode\LaravelDeveloper\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-use Symfony\Component\HttpFoundation\HeaderBag;
 
 class DevSanctumAuthMiddleware
 {
