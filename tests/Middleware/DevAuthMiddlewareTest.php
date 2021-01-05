@@ -7,7 +7,6 @@ use Binarcode\LaravelDeveloper\Tests\Fixtures\User;
 use Binarcode\LaravelDeveloper\Tests\TestCase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\HeaderBag;
 
 class DevAuthMiddlewareTest extends TestCase
@@ -15,7 +14,7 @@ class DevAuthMiddlewareTest extends TestCase
     public function test_can_authenticate_using_testing()
     {
         $user = new User;
-        DevAuthMiddleware::resolveUserUsing(fn() => $user);
+        DevAuthMiddleware::resolveUserUsing(fn () => $user);
 
         $middleware = new DevAuthMiddleware;
 
