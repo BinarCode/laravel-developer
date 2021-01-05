@@ -244,9 +244,12 @@ In any of yours service providers, or in the same place you inject the `DevSanct
 use App\Models\User;
 use Binarcode\LaravelDeveloper\Middleware\DevSanctumAuthMiddleware;
 
-DevSanctumAuthMiddleware::resolveUserUsing(function() {
-    return User::first();
-});
+'middleware' => [
+    'api',
+    DevSanctumAuthMiddleware::resolveUserUsing(function() {
+        return User::first();
+    });
+],
 ```
 ## Testing
 

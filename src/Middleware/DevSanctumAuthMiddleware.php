@@ -32,7 +32,6 @@ class DevSanctumAuthMiddleware
         }
 
         if (is_callable(static::$resolveUser)) {
-            /** * @var User $user */
             $user = call_user_func(static::$resolveUser, $request);
         } else {
             /** * @var string $class */
@@ -52,7 +51,6 @@ class DevSanctumAuthMiddleware
 
         $token = $user->createToken('login')->plainTextToken;
 
-        /** * @var HeaderBag $bag */
         $bag = $request->headers;
 
         $bag->add([
