@@ -5,13 +5,12 @@ namespace Binarcode\LaravelDeveloper\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\HeaderBag;
 
 class DevSanctumAuthMiddleware
 {
     /**
-     * @var Closure $resolveUser
+     * @var Closure
      */
     public static $resolveUser;
 
@@ -24,7 +23,7 @@ class DevSanctumAuthMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!App::environment('local')) {
+        if (! App::environment('local')) {
             return $next($request);
         }
 
@@ -65,6 +64,6 @@ class DevSanctumAuthMiddleware
 
     public static function resolveUserUsing(Closure $resolveUser)
     {
-       static::$resolveUser = $resolveUser;
+        static::$resolveUser = $resolveUser;
     }
 }

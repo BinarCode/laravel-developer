@@ -13,13 +13,13 @@ class DevSanctumAuthMiddlewareTest extends TestCase
 {
     public function test_can_authenticate_using_testing()
     {
-        DevSanctumAuthMiddleware::resolveUserUsing(function() {
+        DevSanctumAuthMiddleware::resolveUserUsing(function () {
             return new User();
         });
 
         $middleware = new DevSanctumAuthMiddleware();
 
-        $request = tap(new Request(), function(Request $request){
+        $request = tap(new Request(), function (Request $request) {
             /** * @var HeaderBag $bag */
             $bag = $request->headers;
 
@@ -28,7 +28,7 @@ class DevSanctumAuthMiddlewareTest extends TestCase
             ]);
         });
 
-        $next = function($request) {
+        $next = function ($request) {
             return $request;
         };
 
@@ -41,5 +41,4 @@ class DevSanctumAuthMiddlewareTest extends TestCase
         $this->assertTrue($request->hasHeader('Authorization'));
         $this->assertSame($request->header('Authorization'), 'Bearer foo');
     }
-
 }
