@@ -232,7 +232,9 @@ Each `api` has authentication, and testing it via HTTP Client (ie postman) we sp
 ]
 ```
 
-And send the request with the `Authorization`
+And send the request with the `Authorization` header value `testing`. 
+
+Note: Make sure the `DevSanctumAuthMiddleware` is placed before the `api` middleware.
 
 ### Customize resolved user
 
@@ -245,10 +247,10 @@ use App\Models\User;
 use Binarcode\LaravelDeveloper\Middleware\DevSanctumAuthMiddleware;
 
 'middleware' => [
-    'api',
     DevSanctumAuthMiddleware::resolveUserUsing(function() {
         return User::first();
     });
+    'api',
 ],
 ```
 ## Testing
