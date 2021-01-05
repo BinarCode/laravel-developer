@@ -24,7 +24,7 @@ class DevAuthMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-      $user = $this->validate($request, $next);
+        $user = $this->validate($request, $next);
 
         Auth::setUser($user);
 
