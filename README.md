@@ -1,4 +1,4 @@
-# Lightweight package to log slack exceptions.
+# Lightweight package help your development flow.
 
 
 <p align="center">
