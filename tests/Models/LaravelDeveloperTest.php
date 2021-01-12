@@ -52,4 +52,13 @@ class LaravelDeveloperTest extends TestCase
 
         Notification::assertSentTo(new AnonymousNotifiable, DevNotification::class);
     }
+
+    public function test_can_notify_with_message()
+    {
+        Notification::fake();
+
+        LaravelDeveloper::messageToDevSlack('wew');
+
+        Notification::assertSentTo(new AnonymousNotifiable, DevNotification::class);
+    }
 }

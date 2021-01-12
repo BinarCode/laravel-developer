@@ -73,6 +73,16 @@ LaravelDeveloper::exceptionToDevSlack(
 );
 ```
 
+### Send message to slack
+
+Use this to send any message to your dev slack: 
+
+```php
+use Binarcode\LaravelDeveloper\LaravelDeveloper;
+
+LaravelDeveloper::messageToDevSlack('Hey, we have troubles ;-)');
+```
+
 ### Send anything to slack
 
 Obviously, you can send any kind of message to the slack channel. The `toDevSlack` method accept an instance of `DevNotificationDto`:

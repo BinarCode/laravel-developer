@@ -51,6 +51,18 @@ class LaravelDeveloper
         ));
     }
 
+    public static function messageToDevSlack(string $message)
+    {
+        /**
+         * @var string $class
+         */
+        $class = config('developer.notification', DevNotification::class);
+
+        static::notifyDev(new $class(
+            DevNotificationDto::makeWithMessage($message)
+        ));
+    }
+
     public static function exceptionLogToDevSlack(ExceptionLog $log)
     {
         /**
