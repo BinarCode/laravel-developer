@@ -1,4 +1,4 @@
-# Lightweight package help your development flow.
+# Lightweight package help your development eyes.
 
 
 <p align="center">
