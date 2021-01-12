@@ -2,6 +2,7 @@
 
 namespace Binarcode\LaravelDeveloper\Middleware;
 
+use Binarcode\LaravelDeveloper\Contracts\Sanctumable;
 use Closure;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Request;
@@ -38,7 +39,7 @@ class DevAuthMiddleware
         return static::class;
     }
 
-    protected function validate(Request $request, Closure $next): ?Authenticatable
+    protected function validate(Request $request, Closure $next): ?Sanctumable
     {
         if (! App::environment('local')) {
             return $next($request);
