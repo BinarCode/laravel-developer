@@ -38,7 +38,7 @@ class DevAuthMiddleware
         return static::class;
     }
 
-    protected function validate(Request $request, Closure $next): Authenticatable
+    protected function validate(Request $request, Closure $next): ?Authenticatable
     {
         if (! App::environment('local')) {
             return $next($request);
