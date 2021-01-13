@@ -24,6 +24,10 @@ class DevAuthMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+        if (! App::environment('local')) {
+            return $next($request);
+        }
+
         $user = $this->validate($request, $next);
 
         Auth::setUser($user);
@@ -38,12 +42,8 @@ class DevAuthMiddleware
         return static::class;
     }
 
-    protected function validate(Request $request, Closure $next): ?Authenticatable
+    protected function validate(Request $request, Closure $next)
     {
-        if (! App::environment('local')) {
-            return $next($request);
-        }
-
         if ($request->header('Authorization') !== 'Bearer '. config('developer.auth.bearer', 'testing')) {
             return $next($request);
         }
