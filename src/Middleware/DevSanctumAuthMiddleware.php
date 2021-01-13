@@ -2,6 +2,7 @@
 
 namespace Binarcode\LaravelDeveloper\Middleware;
 
+use Binarcode\LaravelDeveloper\Tests\Fixtures\User;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -9,6 +10,9 @@ class DevSanctumAuthMiddleware extends DevAuthMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
+        /**
+         * @var User $user
+         */
         $user = $this->validate($request, $next);
 
         if (! in_array(\Laravel\Sanctum\HasApiTokens::class, class_uses_recursive($user))) {
