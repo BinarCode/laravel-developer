@@ -4,6 +4,7 @@ namespace Binarcode\LaravelDeveloper;
 
 use Binarcode\LaravelDeveloper\Commands\PruneCommand;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Testing\TestResponse;
 
 class LaravelDeveloperServiceProvider extends ServiceProvider
 {
@@ -30,6 +31,26 @@ class LaravelDeveloperServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/laravel-developer.php', 'developer');
+        $this->registerMacros();
+    }
+
+    protected function registerMacros(): self
+    {
+        TestResponse::macro('dumpWithoutTrace', function() {
+            $content = $this->getContent();
+
+            $json = json_decode($content);
+
+            if (json_last_error() === JSON_ERROR_NONE) {
+                $content = $json;
+            }
+
+            unset($content->trace);
+
+            dump($content);
+
+            return $this;
+        });
     }
 
     public static function migrationFileExists(string $migrationFileName): bool

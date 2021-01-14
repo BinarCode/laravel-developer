@@ -19,7 +19,8 @@
         "php": "^7.4|^8.0",
         "illuminate/contracts": "^8.0",
         "illuminate/support": "^7.0|^8.0",
-        "laravel/slack-notification-channel": "^2.3"
+        "laravel/slack-notification-channel": "^2.3",
+        "ext-json": "*"
     },
     "require-dev": {
         "laravel/sanctum": "^2.8",

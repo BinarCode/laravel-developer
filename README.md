@@ -268,6 +268,12 @@ use Binarcode\LaravelDeveloper\Middleware\DevAuthMiddleware;
 
 If you're using laravel sanctum, and want to explicitely use / generate a Bearer for the resolved user, you can use the `\Binarcode\LaravelDeveloper\Middleware\DevAuthMiddleware::class` instead, which follow the same syntax as the `DevAuthMiddleware`.
 
+## Tests macros
+
+### dumpWithoutTrace
+
+If you're annoying to always scroll up to message in your test when `->dump()` the response, you can use `->dumpWithoutTrace()` instead, it will return you back everything except the long array of trace.
+
 ## Testing
 
 ``` bash
