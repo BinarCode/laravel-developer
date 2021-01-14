@@ -274,6 +274,71 @@ If you're using laravel sanctum, and want to explicitely use / generate a Bearer
 
 If you're annoying to always scroll up to message in your test when `->dump()` the response, you can use `->dumpWithoutTrace()` instead, it will return you back everything except the long array of trace.
 
+## Proxies
+
+Often we're using common `Collection` or `EnumeratesValues` chain methods, but we cannot use those in other context.
+
+### when
+`when` is one of the most useful methods, let's assume we have this class:
+
+```php
+class DocumentGenerator
+{
+    public static function make(...$arguments)
+    {
+        return new static(...$arguments);
+    }
+    
+        public function setItem(Item $item): self
+    {
+        $this->item = $item;
+
+        return $this;
+    }
+
+    public function setOrder(Order $order): self
+    {
+        $this->order = $order;
+
+        return $this;
+    }
+    
+    public function generate(){
+        //
+    }
+}
+```
+
+And you want to set the order for the class, and item unless it exists. The usual way to do so is:
+
+```php
+$generator = DocumentGenerator::make()->setOrder($order);
+
+if ($item) {
+    $generator->setItem($item);
+}
+
+$generator->generate();
+```
+
+Using the `when` chain method, this code become fluent: 
+
+```php
+DocumentGenerator::make()
+    ->setOrder($order)
+    ->when($item, fn($generator) => $generator->setItem($order))
+    ->generate();
+```
+
+To make it work, simply add the `Binarcode\LaravelDeveloper\Concerns\Proxies` trait: 
+
+```php
+class DocumentGenerator
+{
+    use Binarcode\LaravelDeveloper\Concerns\Proxies;
+}
+```
+
 ## Testing
 
 ``` bash
