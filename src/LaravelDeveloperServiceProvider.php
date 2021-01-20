@@ -51,6 +51,8 @@ class LaravelDeveloperServiceProvider extends ServiceProvider
 
             return $this;
         });
+
+        return $this;
     }
 
     public static function migrationFileExists(string $migrationFileName): bool
