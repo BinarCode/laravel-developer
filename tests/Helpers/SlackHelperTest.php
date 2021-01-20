@@ -13,6 +13,8 @@ class SlackHelperTest extends TestCase
 {
     public function test_slack_helper_returns_laravel_developer_instance()
     {
+        Notification::fake();
+
         $this->assertInstanceOf(LaravelDeveloper::class, slack());
         $this->assertInstanceOf(LaravelDeveloper::class, slack('message'));
         $this->assertInstanceOf(LaravelDeveloper::class, slack(new Exception()));
