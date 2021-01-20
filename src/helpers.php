@@ -1,5 +1,6 @@
 <?php
 
+use Binarcode\LaravelDeveloper\LaravelDeveloper;
 use Binarcode\LaravelDeveloper\Profiling\ServerMemory;
 use Binarcode\LaravelDeveloper\Profiling\ServerTiming;
 
@@ -36,5 +37,24 @@ if (! function_exists('measure_timing')) {
         $timing->measure($key);
 
         return dd($timing->getDuration($key));
+    }
+}
+
+if (! function_exists('slack')) {
+    function slack(...$args)
+    {
+        $instance = new LaravelDeveloper;
+
+        collect($args)->each(function ($item) use ($instance) {
+            if (is_string($item)) {
+                $instance::messageToDevSlack($item);
+            }
+
+            if ($item instanceof Throwable) {
+                $instance::exceptionToDevSlack($item);
+            }
+        });
+
+        return $instance;
     }
 }
