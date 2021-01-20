@@ -3,9 +3,7 @@
 namespace Binarcode\LaravelDeveloper\Tests\Helpers;
 
 use Binarcode\LaravelDeveloper\LaravelDeveloper;
-use Binarcode\LaravelDeveloper\Models\ExceptionLog;
 use Binarcode\LaravelDeveloper\Notifications\DevNotification;
-use Binarcode\LaravelDeveloper\Tests\Mock\PayloadMock;
 use Binarcode\LaravelDeveloper\Tests\TestCase;
 use Exception;
 use Illuminate\Notifications\AnonymousNotifiable;
@@ -37,5 +35,4 @@ class SlackHelperTest extends TestCase
 
         Notification::assertSentTo(new AnonymousNotifiable, DevNotification::class);
     }
-
 }

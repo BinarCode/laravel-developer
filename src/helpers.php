@@ -45,7 +45,7 @@ if (! function_exists('slack')) {
     {
         $instance = new LaravelDeveloper;
 
-        collect($args)->each(function($item) use ($instance) {
+        collect($args)->each(function ($item) use ($instance) {
             if (is_string($item)) {
                 $instance::messageToDevSlack($item);
             }
