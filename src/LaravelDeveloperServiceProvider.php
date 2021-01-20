@@ -37,14 +37,23 @@ class LaravelDeveloperServiceProvider extends ServiceProvider
     protected function registerMacros(): self
     {
         TestResponse::macro('dumpWithoutTrace', function () {
+            /**
+             * @var TestResponse $this
+             */
             $content = $this->getContent();
 
+            /**
+             * @var string $content
+             */
             $json = json_decode($content);
 
             if (json_last_error() === JSON_ERROR_NONE) {
                 $content = $json;
             }
 
+            /**
+             * @var object $content
+             */
             unset($content->trace);
 
             dump($content);
