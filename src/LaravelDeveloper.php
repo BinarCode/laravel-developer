@@ -5,20 +5,16 @@ namespace Binarcode\LaravelDeveloper;
 use Binarcode\LaravelDeveloper\Dtos\DevNotificationDto;
 use Binarcode\LaravelDeveloper\Models\ExceptionLog;
 use Binarcode\LaravelDeveloper\Notifications\DevNotification;
+use Binarcode\LaravelDeveloper\Notifications\Slack;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Notification as NotificationFacade;
 use Throwable;
 
 class LaravelDeveloper
 {
-    /**
-     * @var callable
-     */
-    protected static $notifyUsing;
-
     public static function notifyDev(Notification $notification)
     {
-        if (is_callable($cb = static::$notifyUsing)) {
+        if (is_callable($cb = Slack::$notifyUsing)) {
             return call_user_func($cb, $notification);
         }
 
@@ -82,6 +78,6 @@ class LaravelDeveloper
 
     public static function notifyUsing(?callable $notificator)
     {
-        static::$notifyUsing = $notificator;
+        Slack::$notifyUsing = $notificator;
     }
 }

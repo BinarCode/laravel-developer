@@ -1,6 +1,7 @@
 <?php
 
 use Binarcode\LaravelDeveloper\LaravelDeveloper;
+use Binarcode\LaravelDeveloper\Notifications\Slack;
 use Binarcode\LaravelDeveloper\Profiling\ServerMemory;
 use Binarcode\LaravelDeveloper\Profiling\ServerTiming;
 
@@ -43,18 +44,6 @@ if (! function_exists('measure_timing')) {
 if (! function_exists('slack')) {
     function slack(...$args)
     {
-        $instance = new LaravelDeveloper;
-
-        collect($args)->each(function ($item) use ($instance) {
-            if (is_string($item)) {
-                $instance::messageToDevSlack($item);
-            }
-
-            if ($item instanceof Throwable) {
-                $instance::exceptionToDevSlack($item);
-            }
-        });
-
-        return $instance;
+        return Slack::make($args);
     }
 }

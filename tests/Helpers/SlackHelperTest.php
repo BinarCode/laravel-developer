@@ -4,6 +4,7 @@ namespace Binarcode\LaravelDeveloper\Tests\Helpers;
 
 use Binarcode\LaravelDeveloper\LaravelDeveloper;
 use Binarcode\LaravelDeveloper\Notifications\DevNotification;
+use Binarcode\LaravelDeveloper\Notifications\Slack;
 use Binarcode\LaravelDeveloper\Tests\TestCase;
 use Exception;
 use Illuminate\Notifications\AnonymousNotifiable;
@@ -15,16 +16,16 @@ class SlackHelperTest extends TestCase
     {
         Notification::fake();
 
-        $this->assertInstanceOf(LaravelDeveloper::class, slack());
-        $this->assertInstanceOf(LaravelDeveloper::class, slack('message'));
-        $this->assertInstanceOf(LaravelDeveloper::class, slack(new Exception()));
+        $this->assertInstanceOf(Slack::class, slack());
+        $this->assertInstanceOf(Slack::class, slack('message'));
+        $this->assertInstanceOf(Slack::class, slack(new Exception()));
     }
 
     public function test_slack_helper_can_send_message_to_slack()
     {
         Notification::fake();
 
-        $this->assertInstanceOf(LaravelDeveloper::class, slack('message'));
+        $this->assertInstanceOf(Slack::class, slack('message'));
 
         Notification::assertSentTo(new AnonymousNotifiable, DevNotification::class);
     }
@@ -33,7 +34,9 @@ class SlackHelperTest extends TestCase
     {
         Notification::fake();
 
-        $this->assertInstanceOf(LaravelDeveloper::class, slack(new Exception()));
+        $this->assertInstanceOf(Slack::class, slack(new Exception('wrong'))->persist());
+
+        $this->assertDatabaseCount('exception_logs', 1);
 
         Notification::assertSentTo(new AnonymousNotifiable, DevNotification::class);
     }

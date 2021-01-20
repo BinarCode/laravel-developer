@@ -73,6 +73,12 @@ LaravelDeveloper::exceptionToDevSlack(
 );
 ```
 
+Or using helper:
+
+```php
+slack(new Exception('wew'));
+```
+
 ### Send message to slack
 
 Use this to send any message to your dev slack: 
@@ -81,6 +87,12 @@ Use this to send any message to your dev slack:
 use Binarcode\LaravelDeveloper\LaravelDeveloper;
 
 LaravelDeveloper::messageToDevSlack('Hey, we have troubles ;-)');
+```
+
+Or using helper:
+
+```php
+slack('Hey there!');
 ```
 
 ### Send anything to slack
@@ -111,6 +123,12 @@ try {
 ```
 
 Under the hood, the package will store an entry in the `exception_logs` of your database with the exception.
+
+Or using helper (but this will also send a slack notification):
+
+```php
+slack($e)->persist()
+```
 
 ### Slack notification
 
