@@ -36,7 +36,7 @@ class DevNotificationDto implements JsonSerializable
 
     public function hasAttachment(): bool
     {
-        return !is_null($this->attachment_title) || !is_null($this->attachment_content);
+        return ! is_null($this->attachment_title) || ! is_null($this->attachment_content);
     }
 
     public function getAttachmentTitle(): ?string
@@ -51,7 +51,7 @@ class DevNotificationDto implements JsonSerializable
 
     public static function makeWithMessage(string $message): self
     {
-        return tap(new static, fn(self $dto) => $dto->setMessage($message));
+        return tap(new static, fn (self $dto) => $dto->setMessage($message));
     }
 
     public static function makeFromException(Throwable $t): self
@@ -75,7 +75,7 @@ class DevNotificationDto implements JsonSerializable
 
     public static function makeFromExceptionLog(ExceptionLog $log): self
     {
-        return tap(new static, fn(self $dto) => $dto
+        return tap(new static, fn (self $dto) => $dto
             ->setMessage($log->name)
             ->setTitle($log->identifier)
             ->setAttachmentLink($log->getUrl()));
