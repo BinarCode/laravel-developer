@@ -1,6 +1,5 @@
 <?php
 
-use Binarcode\LaravelDeveloper\LaravelDeveloper;
 use Binarcode\LaravelDeveloper\Notifications\Slack;
 use Binarcode\LaravelDeveloper\Profiling\ServerMemory;
 use Binarcode\LaravelDeveloper\Profiling\ServerTiming;

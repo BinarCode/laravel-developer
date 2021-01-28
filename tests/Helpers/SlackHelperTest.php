@@ -2,7 +2,6 @@
 
 namespace Binarcode\LaravelDeveloper\Tests\Helpers;
 
-use Binarcode\LaravelDeveloper\LaravelDeveloper;
 use Binarcode\LaravelDeveloper\Notifications\DevNotification;
 use Binarcode\LaravelDeveloper\Notifications\Slack;
 use Binarcode\LaravelDeveloper\Tests\TestCase;
