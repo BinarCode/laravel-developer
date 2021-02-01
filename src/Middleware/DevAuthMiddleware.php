@@ -24,6 +24,10 @@ class DevAuthMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+        if ($request->isMethod('OPTIONS')) {
+            return $next($request);
+        }
+
         if (! App::environment('local')) {
             return $next($request);
         }
