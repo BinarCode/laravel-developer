@@ -10,6 +10,9 @@ use Throwable;
  * Class DevNotificationDto
  *
  * @property string message
+ * @property string file
+ * @property string line
+ * @property string code
  *
  * @property string attachment_title
  * @property string attachment_link
@@ -19,6 +22,9 @@ use Throwable;
  */
 class DevNotificationDto implements JsonSerializable
 {
+    public $file;
+    public $line;
+    public $code;
     public $message;
 
     public $attachment_title;
@@ -62,6 +68,8 @@ class DevNotificationDto implements JsonSerializable
     public function setException(Throwable $t): self
     {
         $this->message = $t->getMessage();
+        $this->code = $t->getCode();
+        $this->file = $t->getFile();
 
         return $this;
     }
@@ -78,7 +86,31 @@ class DevNotificationDto implements JsonSerializable
         return tap(new static, fn (self $dto) => $dto
             ->setMessage($log->name)
             ->setTitle($log->identifier)
+            ->setLine($log->line)
+            ->setFile($log->file)
+            ->setCode($log->code)
             ->setAttachmentLink($log->getUrl()));
+    }
+
+    protected function setLine($value): self
+    {
+        $this->line = $value;
+
+        return $this;
+    }
+
+    protected function setFile($value): self
+    {
+        $this->file = $value;
+
+        return $this;
+    }
+
+    protected function setCode($value): self
+    {
+        $this->code = $value;
+
+        return $this;
     }
 
     protected function setTitle(string $title): self
@@ -97,8 +129,22 @@ class DevNotificationDto implements JsonSerializable
 
     public function jsonSerialize()
     {
+        $message = $this->message;
+
+        if ($this->code) {
+            $message .= "| Code[{$this->code}]";
+        }
+
+        if ($this->file) {
+            $message .= "| File[{$this->file}]";
+        }
+
+        if ($this->line) {
+            $message .= "| Line[{$this->line}]";
+        }
+
         return [
-            'message' => $this->message,
+            'message' => $message,
             'attachment_title' => $this->attachment_title,
             'attachment_content' => $this->attachment_content,
         ];

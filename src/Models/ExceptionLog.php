@@ -17,7 +17,11 @@ use Throwable;
  * @property string $uuid
  * @property-read string $identifier
  * @property string $name
+ * @property string $file
+ * @property string $line
+ * @property string $code
  * @property array $exception
+ * @property array $previous
  * @property array|mixed $payload
  * @package App\Models
  */
@@ -51,7 +55,11 @@ class ExceptionLog extends Model
     {
         return new static([
             'name' => Str::substr($throwable->getMessage(), 0, 255),
+            'file' => $throwable->getFile(),
+            'line' => $throwable->getLine(),
+            'code' => $throwable->getCode(),
             'exception' => $throwable->__toString(),
+            'previous' => (string) $throwable->getPrevious(),
             'payload' => optional($payload)->jsonSerialize(),
         ]);
     }
