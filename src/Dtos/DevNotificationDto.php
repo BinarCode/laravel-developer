@@ -127,7 +127,7 @@ class DevNotificationDto implements JsonSerializable
         return $this;
     }
 
-    public function jsonSerialize()
+    public function renderMessage(): string
     {
         $message = $this->message;
 
@@ -143,8 +143,13 @@ class DevNotificationDto implements JsonSerializable
             $message .= "| Line[{$this->line}]";
         }
 
+        return $message;
+    }
+
+    public function jsonSerialize()
+    {
         return [
-            'message' => $message,
+            'message' => $this->renderMessage(),
             'attachment_title' => $this->attachment_title,
             'attachment_content' => $this->attachment_content,
         ];

@@ -30,7 +30,7 @@ class DevNotification extends Notification implements ShouldQueue
             (
                 (new SlackMessage())
                 ->from(env('APP_NAME'))
-                ->content($this->notificationDto->message)
+                ->content($this->notificationDto->renderMessage())
             ),
             function (SlackMessage $message) {
                 if ($this->notificationDto->hasAttachment()) {
