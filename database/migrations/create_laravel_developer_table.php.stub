@@ -14,6 +14,10 @@ class CreateLaravelDeveloperTable extends Migration
            $table->string('name')->nullable();
            $table->text('payload')->nullable();
            $table->text('exception')->nullable();
+           $table->text('previous')->nullable();
+           $table->string('file')->nullable();
+           $table->string('line')->nullable();
+           $table->string('code')->nullable();
 
            $table->bigInteger('created_by')->nullable();
            $table->timestamps();

@@ -2,6 +2,8 @@
 
 namespace Binarcode\LaravelDeveloper\Tests\Helpers;
 
+use Binarcode\LaravelDeveloper\LaravelDeveloper;
+use Binarcode\LaravelDeveloper\Models\ExceptionLog;
 use Binarcode\LaravelDeveloper\Notifications\DevNotification;
 use Binarcode\LaravelDeveloper\Notifications\Slack;
 use Binarcode\LaravelDeveloper\Tests\TestCase;
@@ -33,10 +35,18 @@ class SlackHelperTest extends TestCase
     {
         Notification::fake();
 
-        $this->assertInstanceOf(Slack::class, slack(new Exception('wrong'))->persist());
+        config([
+            'developer.exception_log_base_url' => 'app.test/{uuid}'
+        ]);
+
+        $this->assertInstanceOf(Slack::class, slack(new Exception('not found', 404))->persist());
 
         $this->assertDatabaseCount('exception_logs', 1);
 
-        Notification::assertSentTo(new AnonymousNotifiable, DevNotification::class);
+        $uuid = ExceptionLog::latest()->first()->uuid;
+
+        Notification::assertSentTo(new AnonymousNotifiable, DevNotification::class, function(DevNotification $class) use ($uuid) {
+            return $class->notificationDto->attachment_link === "app.test/{$uuid}";
+        });
     }
 }

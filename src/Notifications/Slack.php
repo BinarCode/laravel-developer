@@ -53,11 +53,14 @@ class Slack
         $dto = new DevNotificationDto;
 
         if ($item instanceof Throwable) {
-            if ($this->persist) {
-                ExceptionLog::makeFromException($item)->save();
-            }
 
-            $dto->setException($item);
+            if ($this->persist) {
+                $dto = DevNotificationDto::makeFromExceptionLog(
+                    tap(ExceptionLog::makeFromException($item), fn(ExceptionLog $log) => $log->save())
+                );
+            } else {
+                $dto = DevNotificationDto::makeFromException($item);
+            }
         }
 
         if (is_string($item)) {
@@ -73,6 +76,7 @@ class Slack
         }
 
         $notification = new $class($dto);
+
 
         if (is_callable($cb = static::$notifyUsing)) {
             return call_user_func($cb, $notification);
