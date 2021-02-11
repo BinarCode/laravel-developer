@@ -53,10 +53,9 @@ class Slack
         $dto = new DevNotificationDto;
 
         if ($item instanceof Throwable) {
-
             if ($this->persist) {
                 $dto = DevNotificationDto::makeFromExceptionLog(
-                    tap(ExceptionLog::makeFromException($item), fn(ExceptionLog $log) => $log->save())
+                    tap(ExceptionLog::makeFromException($item), fn (ExceptionLog $log) => $log->save())
                 );
             } else {
                 $dto = DevNotificationDto::makeFromException($item);
