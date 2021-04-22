@@ -5,6 +5,7 @@ namespace Binarcode\LaravelDeveloper\Models;
 use Binarcode\LaravelDeveloper\LaravelDeveloper;
 use Binarcode\LaravelDeveloper\Models\Concerns\WithCreator;
 use Binarcode\LaravelDeveloper\Models\Concerns\WithUuid;
+use Binarcode\LaravelDeveloper\Notifications\DevLog;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -49,6 +50,14 @@ class ExceptionLog extends Model
     public function getKeyName()
     {
         return 'uuid';
+    }
+
+    public static function makeFromDevLog(DevLog $log): self
+    {
+        return new static([
+            'name' => $log->name,
+            'payload' => $log->payload
+        ]);
     }
 
     public static function makeFromException(Throwable $throwable, JsonSerializable $payload = null): self

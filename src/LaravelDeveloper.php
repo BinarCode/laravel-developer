@@ -80,4 +80,9 @@ class LaravelDeveloper
     {
         Slack::$notifyUsing = $notificator;
     }
+
+    public static function log()
+    {
+
+    }
 }

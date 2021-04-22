@@ -1,5 +1,6 @@
 <?php
 
+use Binarcode\LaravelDeveloper\Notifications\DevLog;
 use Binarcode\LaravelDeveloper\Notifications\Slack;
 use Binarcode\LaravelDeveloper\Profiling\ServerMemory;
 use Binarcode\LaravelDeveloper\Profiling\ServerTiming;
@@ -44,5 +45,12 @@ if (! function_exists('slack')) {
     function slack(...$args)
     {
         return Slack::make($args);
+    }
+}
+
+if (! function_exists('devLog')) {
+    function devLog(...$args): DevLog
+    {
+        return DevLog::make(...$args);
     }
 }
