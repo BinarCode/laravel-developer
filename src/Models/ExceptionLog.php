@@ -56,7 +56,7 @@ class ExceptionLog extends Model
     {
         return new static([
             'name' => $log->name,
-            'payload' => $log->payload
+            'payload' => $log->payload,
         ]);
     }
 
