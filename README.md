@@ -357,6 +357,18 @@ class DocumentGenerator
 }
 ```
 
+## Store logs
+
+Sometimes you may want to store simple logs (for instance when you send some API requests from your app, you may want to store the payload): 
+
+```php
+$payload = [...];
+
+devLog('Called Fedex API with:', $payload)
+```
+
+Now you will have an entry in your database table with the payload and the associated name.
+
 ## Testing
 
 ``` bash
