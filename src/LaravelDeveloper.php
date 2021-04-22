@@ -83,6 +83,5 @@ class LaravelDeveloper
 
     public static function log()
     {
-
     }
 }

@@ -44,5 +44,4 @@ class DevLog
     {
         ExceptionLog::makeFromDevLog($this)->save();
     }
-
 }
