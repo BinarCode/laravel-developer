@@ -4,6 +4,7 @@ namespace Binarcode\LaravelDeveloper\Notifications;
 
 use Binarcode\LaravelDeveloper\Dtos\DevNotificationDto;
 use Binarcode\LaravelDeveloper\Models\ExceptionLog;
+use Binarcode\LaravelDeveloper\Telescope\TelescopeException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Notification as NotificationFacade;
 use Throwable;
@@ -57,6 +58,10 @@ class Slack
                 $dto = DevNotificationDto::makeFromExceptionLog(
                     tap(ExceptionLog::makeFromException($item), fn (ExceptionLog $log) => $log->save())
                 );
+
+                if (config('developer.interacts_telescope')) {
+                    TelescopeException::recordException($item);
+                }
             } else {
                 $dto = DevNotificationDto::makeFromException($item);
             }

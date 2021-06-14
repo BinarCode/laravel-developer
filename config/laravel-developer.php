@@ -23,4 +23,6 @@ return [
     'auth' => [
         'bearer' => 'testing',
     ],
+
+    'interacts_telescope' => env('INTERACTS_TELESCOPE'),
 ];
