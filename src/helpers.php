@@ -60,7 +60,7 @@ if (! function_exists('telescopeException')) {
     function telescopeException(Throwable $exception, $message = null): void
     {
         if (config('developer.interacts_telescope')) {
-            TelescopeException::recordException($exception, $message);
+            TelescopeException::record($exception, $message);
         }
     }
 }

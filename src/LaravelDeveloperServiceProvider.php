@@ -12,7 +12,7 @@ class LaravelDeveloperServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../config/laravel-developer.php' => config_path('developer.php'),
+                __DIR__ . '/../config/developer.php' => config_path('developer.php'),
             ], 'developer-config');
 
             $migrationFileName = 'create_laravel_developer_table.php';
@@ -30,7 +30,7 @@ class LaravelDeveloperServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/laravel-developer.php', 'developer');
+        $this->mergeConfigFrom(__DIR__ . '/../config/developer.php', 'developer');
         $this->registerMacros();
     }
 

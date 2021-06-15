@@ -24,5 +24,8 @@ return [
         'bearer' => 'testing',
     ],
 
-    'interacts_telescope' => env('INTERACTS_TELESCOPE'),
+    /**
+     * If this is true, you should ensure you have telescope installed and the package will store exceptions in the telescope as well.
+     */
+    'telescope' => env('DEV_TELESCOPE'),
 ];
