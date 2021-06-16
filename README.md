@@ -369,6 +369,15 @@ devLog('Called Fedex API with:', $payload)
 
 Now you will have an entry in your database table with the payload and the associated name.
 
+
+## Telescope support
+
+Package will automaticaly store exceptions into [telescope](https://laravel.com/docs/telescope). 
+
+Simply install telescope and mark the `developer.telescope` on `true`. 
+
+Telescope exceptions will be automatically stored on each `slack($e)->persist()` call, or custom using the `telescopeException($e, 'custom message')` helper.
+
 ## Testing
 
 ``` bash

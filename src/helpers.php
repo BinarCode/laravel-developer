@@ -4,6 +4,7 @@ use Binarcode\LaravelDeveloper\Notifications\DevLog;
 use Binarcode\LaravelDeveloper\Notifications\Slack;
 use Binarcode\LaravelDeveloper\Profiling\ServerMemory;
 use Binarcode\LaravelDeveloper\Profiling\ServerTiming;
+use Binarcode\LaravelDeveloper\Telescope\TelescopeException;
 
 if (! function_exists('measure_memory')) {
     function measure_memory($callable = null, string $key = 'action', string $unit = 'mb')
@@ -52,5 +53,14 @@ if (! function_exists('devLog')) {
     function devLog(...$args): DevLog
     {
         return DevLog::make(...$args);
+    }
+}
+
+if (! function_exists('telescopeException')) {
+    function telescopeException(Throwable $exception, $message = null): void
+    {
+        if (config('developer.interacts_telescope')) {
+            TelescopeException::record($exception, $message);
+        }
     }
 }

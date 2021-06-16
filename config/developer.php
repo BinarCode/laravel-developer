@@ -23,4 +23,9 @@ return [
     'auth' => [
         'bearer' => 'testing',
     ],
+
+    /**
+     * If this is true, you should ensure you have telescope installed and the package will store exceptions in the telescope as well.
+     */
+    'telescope' => env('DEV_TELESCOPE'),
 ];

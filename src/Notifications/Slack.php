@@ -4,6 +4,8 @@ namespace Binarcode\LaravelDeveloper\Notifications;
 
 use Binarcode\LaravelDeveloper\Dtos\DevNotificationDto;
 use Binarcode\LaravelDeveloper\Models\ExceptionLog;
+use Binarcode\LaravelDeveloper\Telescope\TelescopeDev;
+use Binarcode\LaravelDeveloper\Telescope\TelescopeException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Notification as NotificationFacade;
 use Throwable;
@@ -20,6 +22,8 @@ class Slack
     protected bool $persist = false;
 
     protected ?string $channel = null;
+
+    protected bool $telescope = true;
 
     public function __construct($args = null)
     {
@@ -66,6 +70,10 @@ class Slack
                 $dto = DevNotificationDto::makeFromExceptionLog(
                     tap(ExceptionLog::makeFromException($item), fn (ExceptionLog $log) => $log->save())
                 );
+
+                if ($this->telescope && TelescopeDev::allow()) {
+                    TelescopeException::record($item);
+                }
             } else {
                 $dto = DevNotificationDto::makeFromException($item);
             }
@@ -93,6 +101,13 @@ class Slack
         NotificationFacade::route('slack', $this->channel ?? config('developer.slack_dev_hook'))->notify(
             $notification
         );
+
+        return $this;
+    }
+
+    public function withoutTelescope(): self
+    {
+        $this->telescope = false;
 
         return $this;
     }
