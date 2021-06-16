@@ -21,6 +21,8 @@ class Slack
 
     protected bool $persist = false;
 
+    protected ?string $channel = null;
+
     protected bool $telescope = true;
 
     public function __construct($args = null)
@@ -43,6 +45,13 @@ class Slack
     public function persist($persist = true): self
     {
         $this->persist = $persist;
+
+        return $this;
+    }
+
+    public function channel(string $channel): self
+    {
+        $this->channel = $channel;
 
         return $this;
     }
@@ -89,7 +98,7 @@ class Slack
             return call_user_func($cb, $notification);
         }
 
-        NotificationFacade::route('slack', config('developer.slack_dev_hook'))->notify(
+        NotificationFacade::route('slack', $this->channel ?? config('developer.slack_dev_hook'))->notify(
             $notification
         );
 
