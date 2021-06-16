@@ -19,6 +19,8 @@ class Slack
 
     protected bool $persist = false;
 
+    protected ?string $channel = null;
+
     public function __construct($args = null)
     {
         $this->queue = collect($args)->flatten();
@@ -39,6 +41,13 @@ class Slack
     public function persist($persist = true): self
     {
         $this->persist = $persist;
+
+        return $this;
+    }
+
+    public function channel($channel = null): self
+    {
+        $this->channel = $channel;
 
         return $this;
     }
@@ -81,7 +90,7 @@ class Slack
             return call_user_func($cb, $notification);
         }
 
-        NotificationFacade::route('slack', config('developer.slack_dev_hook'))->notify(
+        NotificationFacade::route('slack', $this->channel ?? config('developer.slack_dev_hook'))->notify(
             $notification
         );
 
