@@ -49,7 +49,7 @@ class Slack
         return $this;
     }
 
-    public function channel($channel = null): self
+    public function channel(string $channel): self
     {
         $this->channel = $channel;
 
