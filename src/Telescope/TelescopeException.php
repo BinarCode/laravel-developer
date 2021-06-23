@@ -17,6 +17,7 @@ class TelescopeException
         })->toArray();
 
         try {
+            Telescope::startRecording();
             Telescope::recordException(
                 IncomingExceptionEntry::make($exception, [
                     'class' => get_class($exception),
