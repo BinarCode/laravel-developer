@@ -9,6 +9,7 @@ class CreateLaravelDeveloperTable extends Migration
     public function up()
     {
         Schema::create('exception_logs', function (Blueprint $table) {
+           $table->id();
            $table->uuid('uuid');
 
            $table->string('name')->nullable();

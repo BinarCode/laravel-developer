@@ -55,6 +55,7 @@ class ExceptionLog extends Model
     public static function makeFromDevLog(DevLog $log): self
     {
         return new static([
+            'uuid' => (string) Str::uuid(),
             'name' => $log->name,
             'payload' => $log->payload,
         ]);
@@ -63,6 +64,7 @@ class ExceptionLog extends Model
     public static function makeFromException(Throwable $throwable, JsonSerializable $payload = null): self
     {
         return new static([
+            'uuid' => (string) Str::uuid(),
             'name' => Str::substr($throwable->getMessage(), 0, 255),
             'file' => $throwable->getFile(),
             'line' => $throwable->getLine(),
