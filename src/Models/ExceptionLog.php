@@ -33,6 +33,9 @@ class ExceptionLog extends Model
     use WithUuid;
     use WithCreator;
 
+    public const TAG_DANGER = 'danger';
+    public const TAG_INFO = 'info';
+
     protected $table = 'exception_logs';
 
     protected $primaryKey = 'uuid';
@@ -74,6 +77,7 @@ class ExceptionLog extends Model
             'exception' => $throwable->__toString(),
             'previous' => (string) $throwable->getPrevious(),
             'payload' => optional($payload)->jsonSerialize(),
+            'tags' => static::TAG_DANGER,
         ]);
     }
 

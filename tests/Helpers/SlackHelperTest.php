@@ -42,6 +42,10 @@ class SlackHelperTest extends TestCase
 
         $this->assertDatabaseCount('exception_logs', 1);
 
+        $this->assertDatabaseHas('exception_logs', [
+            'tags' => 'danger',
+        ]);
+
         $uuid = ExceptionLog::latest()->first()->uuid;
 
         Notification::assertSentTo(new AnonymousNotifiable, DevNotification::class, function (DevNotification $class) use ($uuid) {
