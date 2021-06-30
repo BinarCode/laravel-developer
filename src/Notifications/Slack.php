@@ -2,7 +2,6 @@
 
 namespace Binarcode\LaravelDeveloper\Notifications;
 
-use App\Notifications\OrderPlacedNotification;
 use Binarcode\LaravelDeveloper\Dtos\DevNotificationDto;
 use Binarcode\LaravelDeveloper\Models\ExceptionLog;
 use Binarcode\LaravelDeveloper\Telescope\TelescopeDev;
@@ -97,10 +96,11 @@ class Slack
             NotificationFacade::route('slack', $this->guessChannel())->notify(
                 $item
             );
+
+            return $this;
         }
 
         $notification = new $class($dto);
-
 
         if (is_callable($cb = static::$notifyUsing)) {
             return call_user_func($cb, $notification);
