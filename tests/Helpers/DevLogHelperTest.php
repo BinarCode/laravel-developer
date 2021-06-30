@@ -27,4 +27,17 @@ class DevLogHelperTest extends TestCase
             $exceptionLog->payload
         );
     }
+
+    public function test_dev_log_can_store_tags(): void
+    {
+        $payload = ['a' => 'b'];
+
+        $this->assertInstanceOf(DevLog::class, $log = devLog('Dev Log', $payload, 'error'));
+
+        $log->__destruct();
+
+        $this->assertDatabaseHas('exception_logs', [
+            'tags' => 'error',
+        ]);
+    }
 }

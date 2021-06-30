@@ -13,6 +13,7 @@ class CreateLaravelDeveloperTable extends Migration
            $table->uuid('uuid');
 
            $table->string('name')->nullable();
+           $table->string('tags')->nullable();
            $table->text('payload')->nullable();
            $table->text('exception')->nullable();
            $table->text('previous')->nullable();

@@ -21,6 +21,7 @@ use Throwable;
  * @property string $file
  * @property string $line
  * @property string $code
+ * @property string $tags
  * @property array $exception
  * @property array $previous
  * @property array|mixed $payload
@@ -58,6 +59,7 @@ class ExceptionLog extends Model
             'uuid' => (string) Str::uuid(),
             'name' => $log->name,
             'payload' => $log->payload,
+            'tags' => $log->tags,
         ]);
     }
 
