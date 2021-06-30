@@ -2,10 +2,12 @@
 
 namespace Binarcode\LaravelDeveloper\Notifications;
 
+use App\Notifications\OrderPlacedNotification;
 use Binarcode\LaravelDeveloper\Dtos\DevNotificationDto;
 use Binarcode\LaravelDeveloper\Models\ExceptionLog;
 use Binarcode\LaravelDeveloper\Telescope\TelescopeDev;
 use Binarcode\LaravelDeveloper\Telescope\TelescopeException;
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Notification as NotificationFacade;
 use Throwable;
@@ -68,7 +70,7 @@ class Slack
         if ($item instanceof Throwable) {
             if ($this->persist) {
                 $dto = DevNotificationDto::makeFromExceptionLog(
-                    tap(ExceptionLog::makeFromException($item), fn (ExceptionLog $log) => $log->save())
+                    tap(ExceptionLog::makeFromException($item), fn(ExceptionLog $log) => $log->save())
                 );
 
                 if ($this->telescope && TelescopeDev::allow()) {
@@ -91,6 +93,12 @@ class Slack
             $dto = $dto::makeFromExceptionLog($item);
         }
 
+        if ($item instanceof Notification) {
+            NotificationFacade::route('slack', $this->guessChannel())->notify(
+                $item
+            );
+        }
+
         $notification = new $class($dto);
 
 
@@ -98,7 +106,7 @@ class Slack
             return call_user_func($cb, $notification);
         }
 
-        NotificationFacade::route('slack', $this->channel ?? config('developer.slack_dev_hook'))->notify(
+        NotificationFacade::route('slack', $this->guessChannel())->notify(
             $notification
         );
 
@@ -115,5 +123,10 @@ class Slack
     public static function notifyUsing(?callable $notificator)
     {
         Slack::$notifyUsing = $notificator;
+    }
+
+    private function guessChannel(): ?string
+    {
+        return $this->channel ?? config('developer.slack_dev_hook');
     }
 }
