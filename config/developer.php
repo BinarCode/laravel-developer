@@ -9,7 +9,7 @@ return [
     /**
      * The url to the web where you may display the exception.
      *
-     * For instance you can use nova, so the url will look like: /nova/resources/exception-logs/{uuid}
+     * For instance you can use nova, so the url will look like: /nova/resources/exception-logs/{id}
      *
      * We will replace the uuid with the exception log uuid.
      */

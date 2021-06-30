@@ -35,7 +35,7 @@ class SlackHelperTest extends TestCase
         Notification::fake();
 
         config([
-            'developer.exception_log_base_url' => 'app.test/{uuid}',
+            'developer.exception_log_base_url' => 'app.test/{id}',
         ]);
 
         $this->assertInstanceOf(Slack::class, slack(new Exception('not found', 404))->persist());
@@ -46,7 +46,7 @@ class SlackHelperTest extends TestCase
             'tags' => 'danger',
         ]);
 
-        $uuid = ExceptionLog::latest()->first()->uuid;
+        $uuid = ExceptionLog::latest()->first()->id;
 
         Notification::assertSentTo(new AnonymousNotifiable, DevNotification::class, function (DevNotification $class) use ($uuid) {
             return $class->notificationDto->attachment_link === "app.test/{$uuid}";

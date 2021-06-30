@@ -15,6 +15,7 @@ use Throwable;
 
 /**
  * Class ExceptionLog
+ * @property int $id
  * @property string $uuid
  * @property-read string $identifier
  * @property string $name
@@ -38,23 +39,12 @@ class ExceptionLog extends Model
 
     protected $table = 'exception_logs';
 
-    protected $primaryKey = 'uuid';
-
-    public $incrementing = false;
-
-    protected $keyType = 'string';
-
     protected $guarded = [];
 
     protected $casts = [
         'payload' => 'array',
         'exception' => 'array',
     ];
-
-    public function getKeyName()
-    {
-        return 'uuid';
-    }
 
     public static function makeFromDevLog(DevLog $log): self
     {
@@ -114,7 +104,7 @@ class ExceptionLog extends Model
             return null;
         }
 
-        return Str::replaceArray('{uuid}', ['{uuid}' => $this->uuid,], config('developer.exception_log_base_url'));
+        return Str::replaceArray('{id}', ['{id}' => $this->id,], config('developer.exception_log_base_url'));
     }
 
     public static function prune(DateTimeInterface $before)

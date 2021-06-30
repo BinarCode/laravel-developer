@@ -58,7 +58,7 @@ class ExceptionLogTest extends TestCase
     public function test_can_generate_link()
     {
         config([
-            'developer.exception_log_base_url' => 'foo/{uuid}',
+            'developer.exception_log_base_url' => 'foo/{id}',
         ]);
 
         $log = tap(ExceptionLog::makeFromException(
@@ -69,7 +69,7 @@ class ExceptionLogTest extends TestCase
         });
 
         $this->assertSame(
-            'foo/' . $log->uuid,
+            'foo/' . $log->id,
             $log->getUrl()
         );
     }
