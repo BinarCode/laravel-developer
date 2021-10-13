@@ -35,6 +35,8 @@ class DevNotificationTest extends TestCase
 
         devLog('Targetable')
             ->target($log)
+            ->addRelatedModel($log)
+            ->addMeta(['browser' => 'safari',])
             ->save();
 
         $this->assertDatabaseHas('developer_logs', [

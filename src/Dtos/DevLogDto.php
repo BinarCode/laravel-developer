@@ -18,11 +18,15 @@ class DevLogDto
 
     public ?Collection $relatedModels;
 
+    public ?Collection $meta;
+
     public function __construct(string $name = 'Dev Log', ?array $payload = [], ?string $tags = null)
     {
         $this->payload = $payload ?? [];
         $this->name = $name;
         $this->tags = $tags;
+        $this->relatedModels = collect();
+        $this->meta = collect();
     }
 
     public function setPayload(array $payload): self
@@ -59,6 +63,23 @@ class DevLogDto
     public function target(Model $model): self
     {
         $this->target = $model;
+
+        return $this;
+    }
+
+    public function addRelatedModel(Model $model): self
+    {
+        $this->relatedModels->push([
+            'target_id' => $model->getKey(),
+            'target_type' => $model->getMorphClass(),
+        ]);
+
+        return $this;
+    }
+
+    public function addMeta(array $meta): self
+    {
+        $this->meta->push($meta);
 
         return $this;
     }

@@ -369,6 +369,32 @@ devLog('Called Fedex API with:', $payload)
 
 Now you will have an entry in your database table with the payload and the associated name.
 
+### Attach target
+
+You can attach a target to your log, so it will relate to a model like this: 
+
+```php
+devLog('Model updated')->target($user);
+```
+
+Or if you need to attach many models, use: 
+
+```php
+devLog('Targetable')
+    ->addRelatedModel($user)
+    ->addRelatedModel($post)
+    ->save();
+```
+
+### Attach meta
+
+You also can attach meta data to your logs: 
+
+```php
+devLog('Targetable')
+    ->addMeta(['browser' => 'safari',])
+    ->save();
+```
 
 ## Telescope support
 

@@ -48,6 +48,8 @@ class DeveloperLog extends Model
     protected $casts = [
         'payload' => 'array',
         'exception' => 'array',
+        'related_models' => 'array',
+        'meta' => 'array',
     ];
 
     public function getTable(): string
@@ -64,6 +66,8 @@ class DeveloperLog extends Model
             'tags' => $log->tags,
             'target_id' => $log->target ? $log->target->getKey() : null,
             'target_type' => $log->target ? $log->target->getMorphClass() : null,
+            'related_models' => $log->relatedModels->toArray(),
+            'meta' => $log->meta->toArray(),
         ]);
     }
 
