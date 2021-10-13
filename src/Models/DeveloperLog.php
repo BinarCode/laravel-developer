@@ -15,7 +15,7 @@ use Throwable;
 
 /**
  * Class ExceptionLog
- * @property int $id
+ * @property string $id
  * @property string $uuid
  * @property-read string $identifier
  * @property string $name
