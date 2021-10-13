@@ -5,6 +5,7 @@ namespace Binarcode\LaravelDeveloper\Tests\Notifications;
 use Binarcode\LaravelDeveloper\LaravelDeveloper;
 use Binarcode\LaravelDeveloper\Models\DeveloperLog;
 use Binarcode\LaravelDeveloper\Notifications\DevNotification;
+use Binarcode\LaravelDeveloper\Tests\Fixtures\User;
 use Binarcode\LaravelDeveloper\Tests\Mock\CustomNotificationMock;
 use Binarcode\LaravelDeveloper\Tests\Mock\PayloadMock;
 use Binarcode\LaravelDeveloper\Tests\TestCase;
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Notification as NotificationFacade;
 
 class DevNotificationTest extends TestCase
 {
-    public function test_can_notify_from_exception_log()
+    public function test_can_notify_from_exception_log(): void
     {
         Notification::fake();
 
@@ -27,7 +28,22 @@ class DevNotificationTest extends TestCase
         Notification::assertSentTo(new AnonymousNotifiable, DevNotification::class);
     }
 
-    public function test_can_send_custom_notification()
+    public function test_can_relate_target(): void
+    {
+        Notification::fake();
+        $log = DeveloperLog::factory()->create();
+
+        devLog('Targetable')
+            ->target($log)
+            ->save();
+
+        $this->assertDatabaseHas('developer_logs', [
+            'name' => 'Targetable',
+            'target_id' => '1',
+        ]);
+    }
+
+    public function test_can_send_custom_notification(): void
     {
         Notification::fake();
 
@@ -47,7 +63,7 @@ class DevNotificationTest extends TestCase
         LaravelDeveloper::notifyUsing(null);
     }
 
-    public function test_can_set_custom_config_notification()
+    public function test_can_set_custom_config_notification(): void
     {
         Notification::fake();
 

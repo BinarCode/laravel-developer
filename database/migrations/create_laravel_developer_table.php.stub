@@ -22,6 +22,10 @@ class CreateLaravelDeveloperTable extends Migration
            $table->string('file')->nullable();
            $table->string('line')->nullable();
            $table->string('code')->nullable();
+           $table->string('target_type')->nullable();
+           $table->unsignedBigInteger('target_id')->nullable();
+           $table->json('related_models')->nullable();
+           $table->json('meta')->nullable();
 
            $table->bigInteger('created_by')->nullable();
            $table->timestamps();

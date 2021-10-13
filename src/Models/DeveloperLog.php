@@ -25,6 +25,10 @@ use Throwable;
  * @property string $tags
  * @property array $exception
  * @property array $previous
+ * @property array $meta
+ * @property array $related_models
+ * @property string $target_type
+ * @property id $target_id
  * @property array|mixed $payload
  * @package App\Models
  */
@@ -58,6 +62,8 @@ class DeveloperLog extends Model
             'name' => $log->name,
             'payload' => $log->payload,
             'tags' => $log->tags,
+            'target_id' => $log->target ? $log->target->getKey() : null,
+            'target_type' => $log->target ? $log->target->getMorphClass() : null,
         ]);
     }
 
