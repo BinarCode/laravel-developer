@@ -5,7 +5,7 @@ namespace Binarcode\LaravelDeveloper\Models;
 use Binarcode\LaravelDeveloper\LaravelDeveloper;
 use Binarcode\LaravelDeveloper\Models\Concerns\WithCreator;
 use Binarcode\LaravelDeveloper\Models\Concerns\WithUuid;
-use Binarcode\LaravelDeveloper\Notifications\DevLog;
+use Binarcode\LaravelDeveloper\Dtos\DevLogDto;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -28,7 +28,7 @@ use Throwable;
  * @property array|mixed $payload
  * @package App\Models
  */
-class ExceptionLog extends Model
+class DeveloperLog extends Model
 {
     use HasFactory;
     use WithUuid;
@@ -37,7 +37,7 @@ class ExceptionLog extends Model
     public const TAG_DANGER = 'danger';
     public const TAG_INFO = 'info';
 
-    protected $table = 'exception_logs';
+    protected $table = 'developer_logs';
 
     protected $guarded = [];
 
@@ -46,7 +46,12 @@ class ExceptionLog extends Model
         'exception' => 'array',
     ];
 
-    public static function makeFromDevLog(DevLog $log): self
+    public function getTable(): string
+    {
+        return config('developer.table') ?? $this->table;
+    }
+
+    public static function makeFromDevLog(DevLogDto $log): self
     {
         return new static([
             'uuid' => (string) Str::uuid(),

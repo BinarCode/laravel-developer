@@ -2,7 +2,7 @@
 
 namespace Binarcode\LaravelDeveloper\Tests\Helpers;
 
-use Binarcode\LaravelDeveloper\Models\ExceptionLog;
+use Binarcode\LaravelDeveloper\Models\DeveloperLog;
 use Binarcode\LaravelDeveloper\Notifications\DevNotification;
 use Binarcode\LaravelDeveloper\Notifications\Slack;
 use Binarcode\LaravelDeveloper\Tests\Fixtures\DummyNotification;
@@ -42,13 +42,13 @@ class SlackHelperTest extends TestCase
 
         $this->assertInstanceOf(Slack::class, slack(new Exception('not found', 404))->persist());
 
-        $this->assertDatabaseCount('exception_logs', 1);
+        $this->assertDatabaseCount('developer_logs', 1);
 
-        $this->assertDatabaseHas('exception_logs', [
+        $this->assertDatabaseHas('developer_logs', [
             'tags' => 'danger',
         ]);
 
-        $uuid = ExceptionLog::latest()->first()->id;
+        $uuid = DeveloperLog::latest()->first()->id;
 
         Notification::assertSentTo(new AnonymousNotifiable, DevNotification::class,
             function (DevNotification $class) use ($uuid) {

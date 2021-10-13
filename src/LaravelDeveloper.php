@@ -3,7 +3,7 @@
 namespace Binarcode\LaravelDeveloper;
 
 use Binarcode\LaravelDeveloper\Dtos\DevNotificationDto;
-use Binarcode\LaravelDeveloper\Models\ExceptionLog;
+use Binarcode\LaravelDeveloper\Models\DeveloperLog;
 use Binarcode\LaravelDeveloper\Notifications\DevNotification;
 use Binarcode\LaravelDeveloper\Notifications\Slack;
 use Illuminate\Notifications\Notification;
@@ -59,7 +59,7 @@ class LaravelDeveloper
         ));
     }
 
-    public static function exceptionLogToDevSlack(ExceptionLog $log)
+    public static function exceptionLogToDevSlack(DeveloperLog $log)
     {
         /**
          * @var string $class

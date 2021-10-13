@@ -1,6 +1,6 @@
 <?php
 
-use Binarcode\LaravelDeveloper\Notifications\DevLog;
+use Binarcode\LaravelDeveloper\Dtos\DevLogDto;
 use Binarcode\LaravelDeveloper\Notifications\Slack;
 use Binarcode\LaravelDeveloper\Profiling\ServerMemory;
 use Binarcode\LaravelDeveloper\Profiling\ServerTiming;
@@ -50,9 +50,9 @@ if (! function_exists('slack')) {
 }
 
 if (! function_exists('devLog')) {
-    function devLog(...$args): DevLog
+    function devLog(...$args): DevLogDto
     {
-        return DevLog::make(...$args);
+        return DevLogDto::make(...$args);
     }
 }
 

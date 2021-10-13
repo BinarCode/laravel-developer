@@ -2,6 +2,16 @@
 
 return [
     /**
+     * The database table name.
+     */
+    'table' => 'developer_logs',
+
+    /**
+     * The model used to manage logs.
+     */
+    'model' => \Binarcode\LaravelDeveloper\Models\DeveloperLog::class,
+
+    /**
      * The slack incoming webhook to send notifications.
      */
     'slack_dev_hook' => env('SLACK_DEV_HOOK'),

@@ -1,18 +1,18 @@
 <?php
 
-namespace Binarcode\LaravelDeveloper\Notifications;
+namespace Binarcode\LaravelDeveloper\Dtos;
 
-use Binarcode\LaravelDeveloper\Models\ExceptionLog;
+use Binarcode\LaravelDeveloper\Models\DeveloperLog;
 
-class DevLog
+class DevLogDto
 {
-    public array $payload;
-
     public string $name;
+
+    public ?array $payload = [];
 
     public ?string $tags;
 
-    public function __construct(string $name = 'Dev Log', array $payload = [], ?string $tags = null)
+    public function __construct(string $name = 'Dev Log', ?array $payload = [], ?string $tags = null)
     {
         $this->payload = $payload;
         $this->name = $name;
@@ -40,9 +40,9 @@ class DevLog
         return $this;
     }
 
-    public static function make(string $name = 'Dev Log', array $payload = null, ?string $tags = null): self
+    public static function make(...$args): self
     {
-        return new static($name, $payload, $tags);
+        return new static(...$args);
     }
 
     public function getPayload(): array
@@ -50,8 +50,13 @@ class DevLog
         return $this->payload;
     }
 
+    public function save(): void
+    {
+        DeveloperLog::makeFromDevLog($this)->save();
+    }
+
     public function __destruct()
     {
-        ExceptionLog::makeFromDevLog($this)->save();
+        $this->save();
     }
 }

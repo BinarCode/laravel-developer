@@ -2,14 +2,14 @@
 
 namespace Binarcode\LaravelDeveloper\Database\Factories;
 
-use Binarcode\LaravelDeveloper\Models\ExceptionLog;
+use Binarcode\LaravelDeveloper\Models\DeveloperLog;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ExceptionLogFactory extends Factory
+class DeveloperLogFactory extends Factory
 {
-    protected $model = ExceptionLog::class;
+    protected $model = DeveloperLog::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'name' => $this->faker->text(10),

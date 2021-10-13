@@ -4,7 +4,7 @@ namespace Binarcode\LaravelDeveloper\Tests\Models;
 
 use Binarcode\LaravelDeveloper\Dtos\DevNotificationDto;
 use Binarcode\LaravelDeveloper\LaravelDeveloper;
-use Binarcode\LaravelDeveloper\Models\ExceptionLog;
+use Binarcode\LaravelDeveloper\Models\DeveloperLog;
 use Binarcode\LaravelDeveloper\Notifications\DevNotification;
 use Binarcode\LaravelDeveloper\Tests\Mock\PayloadMock;
 use Binarcode\LaravelDeveloper\Tests\TestCase;
@@ -23,7 +23,7 @@ class LaravelDeveloperTest extends TestCase
             );
         });
 
-        ExceptionLog::makeFromException(
+        DeveloperLog::makeFromException(
             new Exception('wrong'),
             $payload = new PayloadMock()
         )->notifyDevs();

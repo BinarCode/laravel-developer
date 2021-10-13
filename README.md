@@ -110,15 +110,15 @@ LaravelDeveloper::toDevSlack(
 
 ### Persist exception
 
-If you want to persist the exception into the database, in any place you want to catch and log an exception, you can do something like this: 
+If you want to persist the exception into the database, in any place you want to catch and log an exception, you can do something like this:
 
 ```php
-use Binarcode\LaravelDeveloper\Models\ExceptionLog;
+use Binarcode\LaravelDeveloper\Models\DeveloperLog;
 
 try {
     // Your custom code
 } catch (\Throwable $e) {
-    ExceptionLog::makeFromException($e)->save();
+    DeveloperLog::makeFromException($e)->save();
 }
 ```
 
@@ -143,12 +143,12 @@ You can specify payload to your exception, so it will be stored along with the e
 
 ```php
 use Laravel\Cashier\Exceptions\PaymentFailure;
-use Binarcode\LaravelDeveloper\Models\ExceptionLog;
+use Binarcode\LaravelDeveloper\Models\DeveloperLog;
 
 try {
     // Your custom code
 } catch (PaymentFailure $e) {
-ExceptionLog::makeFromException($e, $e->payment->asStripePaymentIntent())->notifyDevs();
+DeveloperLog::makeFromException($e, $e->payment->asStripePaymentIntent())->notifyDevs();
 }
 ```
 
