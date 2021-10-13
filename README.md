@@ -50,7 +50,7 @@ return [
      *
      * We will replace the uuid with the exception log uuid.
      */
-    'exception_log_base_url' => env('DEV_EXCEPTION_LOG_BASE_URL'),
+    'developer_log_base_url' => env('DEV_developer_log_base_url'),
 
     /**
      * The default notification class used to send notifications.

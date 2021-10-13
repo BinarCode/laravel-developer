@@ -8,13 +8,13 @@ class DevLogDto
 {
     public string $name;
 
-    public ?array $payload = [];
+    public array $payload = [];
 
     public ?string $tags;
 
     public function __construct(string $name = 'Dev Log', ?array $payload = [], ?string $tags = null)
     {
-        $this->payload = $payload;
+        $this->payload = $payload ?? [];
         $this->name = $name;
         $this->tags = $tags;
     }

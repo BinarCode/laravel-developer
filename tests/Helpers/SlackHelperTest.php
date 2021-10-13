@@ -37,7 +37,7 @@ class SlackHelperTest extends TestCase
         Notification::fake();
 
         config([
-            'developer.exception_log_base_url' => 'app.test/{id}',
+            'developer.developer_log_base_url' => 'app.test/{id}',
         ]);
 
         $this->assertInstanceOf(Slack::class, slack(new Exception('not found', 404))->persist());
@@ -61,7 +61,7 @@ class SlackHelperTest extends TestCase
         Notification::fake();
 
         config([
-            'developer.exception_log_base_url' => 'app.test/{id}',
+            'developer.developer_log_base_url' => 'app.test/{id}',
             'developer.slack_dev_hook' => 'https://test.com',
         ]);
 

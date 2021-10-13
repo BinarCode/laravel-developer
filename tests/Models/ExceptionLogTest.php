@@ -58,7 +58,7 @@ class ExceptionLogTest extends TestCase
     public function test_can_generate_link()
     {
         config([
-            'developer.exception_log_base_url' => 'foo/{id}',
+            'developer.developer_log_base_url' => 'foo/{id}',
         ]);
 
         $log = tap(DeveloperLog::makeFromException(

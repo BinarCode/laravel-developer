@@ -105,11 +105,13 @@ class DeveloperLog extends Model
 
     public function getUrl(): ?string
     {
-        if (! config('developer.exception_log_base_url')) {
+        if (! config('developer.developer_log_base_url')) {
             return null;
         }
 
-        return Str::replaceArray('{id}', ['{id}' => $this->id,], config('developer.exception_log_base_url'));
+        return Str::replaceArray(
+            '{id}', ['{id}' => $this->id,], config('developer.developer_log_base_url')
+        );
     }
 
     public static function prune(DateTimeInterface $before)
