@@ -4,7 +4,7 @@ namespace Binarcode\LaravelDeveloper\Nova\Fields;
 
 class Line extends \Laravel\Nova\Fields\Line
 {
-    const MEDIUM = 'medium';
+    public const MEDIUM = 'medium';
 
     public static $classes = [
         self::HEADING => 'text-base font-semibold',

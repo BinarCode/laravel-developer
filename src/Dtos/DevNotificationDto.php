@@ -57,7 +57,7 @@ class DevNotificationDto implements JsonSerializable
 
     public static function makeWithMessage(string $message): self
     {
-        return tap(new static, fn (self $dto) => $dto->setMessage($message));
+        return tap(new static(), fn (self $dto) => $dto->setMessage($message));
     }
 
     public static function makeFromException(Throwable $t): self
@@ -83,7 +83,7 @@ class DevNotificationDto implements JsonSerializable
 
     public static function makeFromExceptionLog(DeveloperLog $log): self
     {
-        return tap(new static, fn (self $dto) => $dto
+        return tap(new static(), fn (self $dto) => $dto
             ->setMessage($log->name)
             ->setTitle($log->identifier)
             ->setLine($log->line)

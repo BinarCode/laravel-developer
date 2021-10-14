@@ -2,10 +2,10 @@
 
 namespace Binarcode\LaravelDeveloper\Models;
 
+use Binarcode\LaravelDeveloper\Dtos\DevLogDto;
 use Binarcode\LaravelDeveloper\LaravelDeveloper;
 use Binarcode\LaravelDeveloper\Models\Concerns\WithCreator;
 use Binarcode\LaravelDeveloper\Models\Concerns\WithUuid;
-use Binarcode\LaravelDeveloper\Dtos\DevLogDto;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -120,7 +120,9 @@ class DeveloperLog extends Model
         }
 
         return Str::replaceArray(
-            '{id}', ['{id}' => $this->id,], config('developer.developer_log_base_url')
+            '{id}',
+            ['{id}' => $this->id,],
+            config('developer.developer_log_base_url')
         );
     }
 

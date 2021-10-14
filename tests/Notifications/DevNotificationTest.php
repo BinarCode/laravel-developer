@@ -5,7 +5,6 @@ namespace Binarcode\LaravelDeveloper\Tests\Notifications;
 use Binarcode\LaravelDeveloper\LaravelDeveloper;
 use Binarcode\LaravelDeveloper\Models\DeveloperLog;
 use Binarcode\LaravelDeveloper\Notifications\DevNotification;
-use Binarcode\LaravelDeveloper\Tests\Fixtures\User;
 use Binarcode\LaravelDeveloper\Tests\Mock\CustomNotificationMock;
 use Binarcode\LaravelDeveloper\Tests\Mock\PayloadMock;
 use Binarcode\LaravelDeveloper\Tests\TestCase;
@@ -25,7 +24,7 @@ class DevNotificationTest extends TestCase
             $payload = new PayloadMock()
         )->notifyDevs();
 
-        Notification::assertSentTo(new AnonymousNotifiable, DevNotification::class);
+        Notification::assertSentTo(new AnonymousNotifiable(), DevNotification::class);
     }
 
     public function test_can_relate_target(): void
@@ -60,7 +59,7 @@ class DevNotificationTest extends TestCase
             $payload = new PayloadMock()
         )->notifyDevs();
 
-        Notification::assertSentTo(new AnonymousNotifiable, CustomNotificationMock::class);
+        Notification::assertSentTo(new AnonymousNotifiable(), CustomNotificationMock::class);
 
         LaravelDeveloper::notifyUsing(null);
     }
@@ -78,6 +77,6 @@ class DevNotificationTest extends TestCase
             $payload = new PayloadMock()
         )->notifyDevs();
 
-        Notification::assertSentTo(new AnonymousNotifiable, CustomNotificationMock::class);
+        Notification::assertSentTo(new AnonymousNotifiable(), CustomNotificationMock::class);
     }
 }

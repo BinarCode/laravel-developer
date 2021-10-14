@@ -64,12 +64,12 @@ class Slack
          */
         $class = config('developer.notification', DevNotification::class);
 
-        $dto = new DevNotificationDto;
+        $dto = new DevNotificationDto();
 
         if ($item instanceof Throwable) {
             if ($this->persist) {
                 $dto = DevNotificationDto::makeFromExceptionLog(
-                    tap(DeveloperLog::makeFromException($item), fn(DeveloperLog $log) => $log->save())
+                    tap(DeveloperLog::makeFromException($item), fn (DeveloperLog $log) => $log->save())
                 );
 
                 if ($this->telescope && TelescopeDev::allow()) {

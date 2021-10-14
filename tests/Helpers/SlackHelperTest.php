@@ -10,7 +10,6 @@ use Binarcode\LaravelDeveloper\Tests\TestCase;
 use Exception;
 use Illuminate\Notifications\AnonymousNotifiable;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Notifications\Notification as NotificationBase;
 
 class SlackHelperTest extends TestCase
 {
@@ -29,7 +28,7 @@ class SlackHelperTest extends TestCase
 
         $this->assertInstanceOf(Slack::class, slack('message'));
 
-        Notification::assertSentTo(new AnonymousNotifiable, DevNotification::class);
+        Notification::assertSentTo(new AnonymousNotifiable(), DevNotification::class);
     }
 
     public function test_slack_helper_can_send_throwable_to_slack()
@@ -50,10 +49,13 @@ class SlackHelperTest extends TestCase
 
         $uuid = DeveloperLog::latest()->first()->id;
 
-        Notification::assertSentTo(new AnonymousNotifiable, DevNotification::class,
+        Notification::assertSentTo(
+            new AnonymousNotifiable(),
+            DevNotification::class,
             function (DevNotification $class) use ($uuid) {
                 return $class->notificationDto->attachment_link === "app.test/{$uuid}";
-            });
+            }
+        );
     }
 
     public function test_slack_helper_can_send_notifications_to_slack()
@@ -69,6 +71,6 @@ class SlackHelperTest extends TestCase
             new DummyNotification()
         )->persist());
 
-        Notification::assertSentTo(new AnonymousNotifiable, DummyNotification::class);
+        Notification::assertSentTo(new AnonymousNotifiable(), DummyNotification::class);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Binarcode\LaravelDeveloper\Nova;
 
-use App\Domains\Developer\Models\ExceptionLog;
 use Binarcode\LaravelDeveloper\Models\DeveloperLog;
 use Binarcode\LaravelDeveloper\Nova\Fields\Badge;
 use Binarcode\LaravelDeveloper\Nova\Fields\Line;
@@ -50,7 +49,7 @@ class DeveloperLogResource extends Resource
                     : '';
             }),
 
-            Text::make('Name')->displayUsing(fn($name) => Str::substr($name, 0, 50)),
+            Text::make('Name')->displayUsing(fn ($name) => Str::substr($name, 0, 50)),
 
             Text::make('File')->hideFromIndex(),
 

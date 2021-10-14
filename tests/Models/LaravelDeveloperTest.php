@@ -39,7 +39,7 @@ class LaravelDeveloperTest extends TestCase
             new Exception('wew')
         );
 
-        Notification::assertSentTo(new AnonymousNotifiable, DevNotification::class);
+        Notification::assertSentTo(new AnonymousNotifiable(), DevNotification::class);
     }
 
     public function test_can_notify_any_dto()
@@ -50,7 +50,7 @@ class LaravelDeveloperTest extends TestCase
             DevNotificationDto::makeWithMessage('hey')
         );
 
-        Notification::assertSentTo(new AnonymousNotifiable, DevNotification::class);
+        Notification::assertSentTo(new AnonymousNotifiable(), DevNotification::class);
     }
 
     public function test_can_notify_with_message()
@@ -59,6 +59,6 @@ class LaravelDeveloperTest extends TestCase
 
         LaravelDeveloper::messageToDevSlack('wew');
 
-        Notification::assertSentTo(new AnonymousNotifiable, DevNotification::class);
+        Notification::assertSentTo(new AnonymousNotifiable(), DevNotification::class);
     }
 }

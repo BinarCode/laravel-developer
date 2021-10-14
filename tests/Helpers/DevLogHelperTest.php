@@ -2,8 +2,8 @@
 
 namespace Binarcode\LaravelDeveloper\Tests\Helpers;
 
-use Binarcode\LaravelDeveloper\Models\DeveloperLog;
 use Binarcode\LaravelDeveloper\Dtos\DevLogDto;
+use Binarcode\LaravelDeveloper\Models\DeveloperLog;
 use Binarcode\LaravelDeveloper\Tests\TestCase;
 
 class DevLogHelperTest extends TestCase
