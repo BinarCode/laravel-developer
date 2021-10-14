@@ -4,7 +4,7 @@ namespace Binarcode\LaravelDeveloper\Tests\Models;
 
 use Binarcode\LaravelDeveloper\Dtos\DevNotificationDto;
 use Binarcode\LaravelDeveloper\LaravelDeveloper;
-use Binarcode\LaravelDeveloper\Models\ExceptionLog;
+use Binarcode\LaravelDeveloper\Models\DeveloperLog;
 use Binarcode\LaravelDeveloper\Notifications\DevNotification;
 use Binarcode\LaravelDeveloper\Tests\Mock\PayloadMock;
 use Binarcode\LaravelDeveloper\Tests\TestCase;
@@ -23,7 +23,7 @@ class LaravelDeveloperTest extends TestCase
             );
         });
 
-        ExceptionLog::makeFromException(
+        DeveloperLog::makeFromException(
             new Exception('wrong'),
             $payload = new PayloadMock()
         )->notifyDevs();
@@ -39,7 +39,7 @@ class LaravelDeveloperTest extends TestCase
             new Exception('wew')
         );
 
-        Notification::assertSentTo(new AnonymousNotifiable, DevNotification::class);
+        Notification::assertSentTo(new AnonymousNotifiable(), DevNotification::class);
     }
 
     public function test_can_notify_any_dto()
@@ -50,7 +50,7 @@ class LaravelDeveloperTest extends TestCase
             DevNotificationDto::makeWithMessage('hey')
         );
 
-        Notification::assertSentTo(new AnonymousNotifiable, DevNotification::class);
+        Notification::assertSentTo(new AnonymousNotifiable(), DevNotification::class);
     }
 
     public function test_can_notify_with_message()
@@ -59,6 +59,6 @@ class LaravelDeveloperTest extends TestCase
 
         LaravelDeveloper::messageToDevSlack('wew');
 
-        Notification::assertSentTo(new AnonymousNotifiable, DevNotification::class);
+        Notification::assertSentTo(new AnonymousNotifiable(), DevNotification::class);
     }
 }

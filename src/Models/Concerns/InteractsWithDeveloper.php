@@ -3,7 +3,7 @@
 namespace Binarcode\LaravelDeveloper\Models\Concerns;
 
 use Binarcode\LaravelDeveloper\Dtos\DevNotificationDto;
-use Binarcode\LaravelDeveloper\Models\ExceptionLog;
+use Binarcode\LaravelDeveloper\Models\DeveloperLog;
 use Binarcode\LaravelDeveloper\Notifications\DevNotification;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Notification as NotificationFacade;
@@ -33,7 +33,7 @@ trait InteractsWithDeveloper
         ));
     }
 
-    public static function exceptionLogToDevSlack(ExceptionLog $log)
+    public static function exceptionLogToDevSlack(DeveloperLog $log)
     {
         static::notifyDev(new DevNotification(
             DevNotificationDto::makeFromExceptionLog($log)

@@ -2,7 +2,7 @@
 
 namespace Binarcode\LaravelDeveloper\Dtos;
 
-use Binarcode\LaravelDeveloper\Models\ExceptionLog;
+use Binarcode\LaravelDeveloper\Models\DeveloperLog;
 use JsonSerializable;
 use Throwable;
 
@@ -57,7 +57,7 @@ class DevNotificationDto implements JsonSerializable
 
     public static function makeWithMessage(string $message): self
     {
-        return tap(new static, fn (self $dto) => $dto->setMessage($message));
+        return tap(new static(), fn (self $dto) => $dto->setMessage($message));
     }
 
     public static function makeFromException(Throwable $t): self
@@ -81,9 +81,9 @@ class DevNotificationDto implements JsonSerializable
         return $this;
     }
 
-    public static function makeFromExceptionLog(ExceptionLog $log): self
+    public static function makeFromExceptionLog(DeveloperLog $log): self
     {
-        return tap(new static, fn (self $dto) => $dto
+        return tap(new static(), fn (self $dto) => $dto
             ->setMessage($log->name)
             ->setTitle($log->identifier)
             ->setLine($log->line)

@@ -3,7 +3,7 @@
 namespace Binarcode\LaravelDeveloper\Notifications;
 
 use Binarcode\LaravelDeveloper\Dtos\DevNotificationDto;
-use Binarcode\LaravelDeveloper\Models\ExceptionLog;
+use Binarcode\LaravelDeveloper\Models\DeveloperLog;
 use Binarcode\LaravelDeveloper\Telescope\TelescopeDev;
 use Binarcode\LaravelDeveloper\Telescope\TelescopeException;
 use Illuminate\Notifications\Notification;
@@ -64,12 +64,12 @@ class Slack
          */
         $class = config('developer.notification', DevNotification::class);
 
-        $dto = new DevNotificationDto;
+        $dto = new DevNotificationDto();
 
         if ($item instanceof Throwable) {
             if ($this->persist) {
                 $dto = DevNotificationDto::makeFromExceptionLog(
-                    tap(ExceptionLog::makeFromException($item), fn(ExceptionLog $log) => $log->save())
+                    tap(DeveloperLog::makeFromException($item), fn (DeveloperLog $log) => $log->save())
                 );
 
                 if ($this->telescope && TelescopeDev::allow()) {
@@ -84,7 +84,7 @@ class Slack
             $dto->setMessage($item);
         }
 
-        if ($item instanceof ExceptionLog) {
+        if ($item instanceof DeveloperLog) {
             if ($this->persist) {
                 $item->save();
             }

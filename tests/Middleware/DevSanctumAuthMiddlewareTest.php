@@ -13,7 +13,7 @@ class DevSanctumAuthMiddlewareTest extends TestCase
 {
     public function test_can_authenticate_and_change_bearer_using_testing()
     {
-        DevSanctumAuthMiddleware::resolveUserUsing(fn () => new User);
+        DevSanctumAuthMiddleware::resolveUserUsing(fn () => new User());
 
         $middleware = new DevSanctumAuthMiddleware();
 

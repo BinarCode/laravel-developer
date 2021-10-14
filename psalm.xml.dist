@@ -11,6 +11,8 @@
         <directory name="src"/>
         <ignoreFiles>
             <directory name="vendor"/>
+            <directory name="src/Nova"/>
+            <directory name="src/Telescope"/>
         </ignoreFiles>
     </projectFiles>
 </psalm>

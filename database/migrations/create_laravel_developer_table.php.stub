@@ -8,18 +8,24 @@ class CreateLaravelDeveloperTable extends Migration
 {
     public function up()
     {
-        Schema::create('exception_logs', function (Blueprint $table) {
+        $table = config('developer.table') ?? 'developer_logs';
+
+        Schema::create($table, function (Blueprint $table) {
            $table->id();
            $table->uuid('uuid');
 
            $table->string('name')->nullable();
            $table->string('tags')->nullable();
-           $table->text('payload')->nullable();
+           $table->json('payload')->nullable();
            $table->text('exception')->nullable();
            $table->text('previous')->nullable();
            $table->string('file')->nullable();
            $table->string('line')->nullable();
            $table->string('code')->nullable();
+           $table->string('target_type')->nullable();
+           $table->unsignedBigInteger('target_id')->nullable();
+           $table->json('related_models')->nullable();
+           $table->json('meta')->nullable();
 
            $table->bigInteger('created_by')->nullable();
            $table->timestamps();
@@ -28,6 +34,8 @@ class CreateLaravelDeveloperTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('exception_logs');
+        $table = config('developer.table') ?? 'developer_logs';
+
+        Schema::dropIfExists($table);
     }
 }

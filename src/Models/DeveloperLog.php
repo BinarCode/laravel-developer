@@ -2,10 +2,10 @@
 
 namespace Binarcode\LaravelDeveloper\Models;
 
+use Binarcode\LaravelDeveloper\Dtos\DevLogDto;
 use Binarcode\LaravelDeveloper\LaravelDeveloper;
 use Binarcode\LaravelDeveloper\Models\Concerns\WithCreator;
 use Binarcode\LaravelDeveloper\Models\Concerns\WithUuid;
-use Binarcode\LaravelDeveloper\Notifications\DevLog;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +15,7 @@ use Throwable;
 
 /**
  * Class ExceptionLog
- * @property int $id
+ * @property string $id
  * @property string $uuid
  * @property-read string $identifier
  * @property string $name
@@ -25,10 +25,14 @@ use Throwable;
  * @property string $tags
  * @property array $exception
  * @property array $previous
+ * @property array $meta
+ * @property array $related_models
+ * @property string $target_type
+ * @property id $target_id
  * @property array|mixed $payload
  * @package App\Models
  */
-class ExceptionLog extends Model
+class DeveloperLog extends Model
 {
     use HasFactory;
     use WithUuid;
@@ -37,22 +41,33 @@ class ExceptionLog extends Model
     public const TAG_DANGER = 'danger';
     public const TAG_INFO = 'info';
 
-    protected $table = 'exception_logs';
+    protected $table = 'developer_logs';
 
     protected $guarded = [];
 
     protected $casts = [
         'payload' => 'array',
         'exception' => 'array',
+        'related_models' => 'array',
+        'meta' => 'array',
     ];
 
-    public static function makeFromDevLog(DevLog $log): self
+    public function getTable(): string
+    {
+        return config('developer.table') ?? $this->table;
+    }
+
+    public static function makeFromDevLog(DevLogDto $log): self
     {
         return new static([
             'uuid' => (string) Str::uuid(),
             'name' => $log->name,
             'payload' => $log->payload,
             'tags' => $log->tags,
+            'target_id' => $log->target ? $log->target->getKey() : null,
+            'target_type' => $log->target ? $log->target->getMorphClass() : null,
+            'related_models' => $log->relatedModels->toArray(),
+            'meta' => $log->meta->toArray(),
         ]);
     }
 
@@ -100,11 +115,15 @@ class ExceptionLog extends Model
 
     public function getUrl(): ?string
     {
-        if (! config('developer.exception_log_base_url')) {
+        if (! config('developer.developer_log_base_url')) {
             return null;
         }
 
-        return Str::replaceArray('{id}', ['{id}' => $this->id,], config('developer.exception_log_base_url'));
+        return Str::replaceArray(
+            '{id}',
+            ['{id}' => $this->id,],
+            config('developer.developer_log_base_url')
+        );
     }
 
     public static function prune(DateTimeInterface $before)

@@ -2,7 +2,7 @@
 
 namespace Binarcode\LaravelDeveloper\Commands;
 
-use Binarcode\LaravelDeveloper\Models\ExceptionLog;
+use Binarcode\LaravelDeveloper\Models\DeveloperLog;
 use Illuminate\Console\Command;
 
 class PruneCommand extends Command
@@ -13,6 +13,6 @@ class PruneCommand extends Command
 
     public function handle()
     {
-        $this->info(ExceptionLog::prune(now()->subHours((int) $this->option('hours'))) . ' entries pruned.');
+        $this->info(DeveloperLog::prune(now()->subHours((int) $this->option('hours'))) . ' entries pruned.');
     }
 }

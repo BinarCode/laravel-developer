@@ -2,7 +2,7 @@
 
 namespace Binarcode\LaravelDeveloper\Tests\Helpers;
 
-use Binarcode\LaravelDeveloper\Models\ExceptionLog;
+use Binarcode\LaravelDeveloper\Models\DeveloperLog;
 use Binarcode\LaravelDeveloper\Notifications\DevNotification;
 use Binarcode\LaravelDeveloper\Notifications\Slack;
 use Binarcode\LaravelDeveloper\Tests\Fixtures\DummyNotification;
@@ -10,7 +10,6 @@ use Binarcode\LaravelDeveloper\Tests\TestCase;
 use Exception;
 use Illuminate\Notifications\AnonymousNotifiable;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Notifications\Notification as NotificationBase;
 
 class SlackHelperTest extends TestCase
 {
@@ -29,7 +28,7 @@ class SlackHelperTest extends TestCase
 
         $this->assertInstanceOf(Slack::class, slack('message'));
 
-        Notification::assertSentTo(new AnonymousNotifiable, DevNotification::class);
+        Notification::assertSentTo(new AnonymousNotifiable(), DevNotification::class);
     }
 
     public function test_slack_helper_can_send_throwable_to_slack()
@@ -37,23 +36,26 @@ class SlackHelperTest extends TestCase
         Notification::fake();
 
         config([
-            'developer.exception_log_base_url' => 'app.test/{id}',
+            'developer.developer_log_base_url' => 'app.test/{id}',
         ]);
 
         $this->assertInstanceOf(Slack::class, slack(new Exception('not found', 404))->persist());
 
-        $this->assertDatabaseCount('exception_logs', 1);
+        $this->assertDatabaseCount('developer_logs', 1);
 
-        $this->assertDatabaseHas('exception_logs', [
+        $this->assertDatabaseHas('developer_logs', [
             'tags' => 'danger',
         ]);
 
-        $uuid = ExceptionLog::latest()->first()->id;
+        $uuid = DeveloperLog::latest()->first()->id;
 
-        Notification::assertSentTo(new AnonymousNotifiable, DevNotification::class,
+        Notification::assertSentTo(
+            new AnonymousNotifiable(),
+            DevNotification::class,
             function (DevNotification $class) use ($uuid) {
                 return $class->notificationDto->attachment_link === "app.test/{$uuid}";
-            });
+            }
+        );
     }
 
     public function test_slack_helper_can_send_notifications_to_slack()
@@ -61,7 +63,7 @@ class SlackHelperTest extends TestCase
         Notification::fake();
 
         config([
-            'developer.exception_log_base_url' => 'app.test/{id}',
+            'developer.developer_log_base_url' => 'app.test/{id}',
             'developer.slack_dev_hook' => 'https://test.com',
         ]);
 
@@ -69,6 +71,6 @@ class SlackHelperTest extends TestCase
             new DummyNotification()
         )->persist());
 
-        Notification::assertSentTo(new AnonymousNotifiable, DummyNotification::class);
+        Notification::assertSentTo(new AnonymousNotifiable(), DummyNotification::class);
     }
 }

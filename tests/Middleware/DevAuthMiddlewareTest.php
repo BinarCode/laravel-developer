@@ -13,10 +13,10 @@ class DevAuthMiddlewareTest extends TestCase
 {
     public function test_can_authenticate_using_testing()
     {
-        $user = new User;
+        $user = new User();
         DevAuthMiddleware::resolveUserUsing(fn () => $user);
 
-        $middleware = new DevAuthMiddleware;
+        $middleware = new DevAuthMiddleware();
 
         $request = tap(new Request(), function (Request $request) {
             /** * @var HeaderBag $bag */

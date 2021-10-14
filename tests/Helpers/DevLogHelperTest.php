@@ -2,8 +2,8 @@
 
 namespace Binarcode\LaravelDeveloper\Tests\Helpers;
 
-use Binarcode\LaravelDeveloper\Models\ExceptionLog;
-use Binarcode\LaravelDeveloper\Notifications\DevLog;
+use Binarcode\LaravelDeveloper\Dtos\DevLogDto;
+use Binarcode\LaravelDeveloper\Models\DeveloperLog;
 use Binarcode\LaravelDeveloper\Tests\TestCase;
 
 class DevLogHelperTest extends TestCase
@@ -12,15 +12,15 @@ class DevLogHelperTest extends TestCase
     {
         $payload = ['a' => 'b'];
 
-        $this->assertInstanceOf(DevLog::class, $log = devLog('Dev Log', $payload));
+        $this->assertInstanceOf(DevLogDto::class, $log = devLog('Dev Log', $payload));
 
         $log->__destruct();
 
-        $this->assertDatabaseHas('exception_logs', [
+        $this->assertDatabaseHas('developer_logs', [
             'name' => 'Dev Log',
         ]);
 
-        $exceptionLog = ExceptionLog::first();
+        $exceptionLog = DeveloperLog::first();
 
         $this->assertSame(
             $payload,
@@ -32,12 +32,14 @@ class DevLogHelperTest extends TestCase
     {
         $payload = ['a' => 'b'];
 
-        $this->assertInstanceOf(DevLog::class, $log = devLog('Dev Log', $payload, 'error'));
+        $this->assertInstanceOf(DevLogDto::class, $log = devLog('Dev Log', $payload, 'error'));
 
         $log->__destruct();
 
-        $this->assertDatabaseHas('exception_logs', [
+        $this->assertDatabaseHas('developer_logs', [
             'tags' => 'error',
         ]);
+
+        $this->assertInstanceOf(DevLogDto::class, devLog('test'));
     }
 }

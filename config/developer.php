@@ -2,6 +2,16 @@
 
 return [
     /**
+     * The database table name.
+     */
+    'table' => 'developer_logs',
+
+    /**
+     * The model used to manage logs.
+     */
+    'model' => \Binarcode\LaravelDeveloper\Models\DeveloperLog::class,
+
+    /**
      * The slack incoming webhook to send notifications.
      */
     'slack_dev_hook' => env('SLACK_DEV_HOOK'),
@@ -13,7 +23,7 @@ return [
      *
      * We will replace the uuid with the exception log uuid.
      */
-    'exception_log_base_url' => env('DEV_EXCEPTION_LOG_BASE_URL'),
+    'developer_log_base_url' => env('DEVELOPER_LOG_BASE_URL'),
 
     /**
      * The default notification class used to send notifications.

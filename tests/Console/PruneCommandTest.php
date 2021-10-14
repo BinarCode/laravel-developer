@@ -3,32 +3,32 @@
 namespace Binarcode\LaravelDeveloper\Tests\Console;
 
 use Binarcode\LaravelDeveloper\Commands\PruneCommand;
-use Binarcode\LaravelDeveloper\Models\ExceptionLog;
+use Binarcode\LaravelDeveloper\Models\DeveloperLog;
 use Binarcode\LaravelDeveloper\Tests\TestCase;
 
 class PruneCommandTest extends TestCase
 {
-    public function test_prune_command_will_clear_old_records()
+    public function test_prune_command_will_clear_old_records(): void
     {
-        $recent = ExceptionLog::factory()->create(['created_at' => now()]);
+        $recent = DeveloperLog::factory()->create(['created_at' => now()]);
 
-        $old = ExceptionLog::factory()->create(['created_at' => now()->subDays(2)]);
+        $old = DeveloperLog::factory()->create(['created_at' => now()->subDays(2)]);
 
         $this->artisan(PruneCommand::class)->expectsOutput('1 entries pruned.');
 
-        $this->assertDatabaseHas('exception_logs', ['uuid' => $recent->uuid]);
+        $this->assertDatabaseHas('developer_logs', ['uuid' => $recent->uuid]);
 
-        $this->assertDatabaseMissing('exception_logs', ['uuid' => $old->uuid]);
+        $this->assertDatabaseMissing('developer_logs', ['uuid' => $old->uuid]);
     }
 
-    public function test_prune_command_can_vary_hours()
+    public function test_prune_command_can_vary_hours(): void
     {
-        $recent = ExceptionLog::factory()->create(['created_at' => now()->subHours(5)]);
+        $recent = DeveloperLog::factory()->create(['created_at' => now()->subHours(5)]);
 
         $this->artisan(PruneCommand::class)->expectsOutput('0 entries pruned.');
 
         $this->artisan(PruneCommand::class, ['--hours' => 4])->expectsOutput('1 entries pruned.');
 
-        $this->assertDatabaseMissing('exception_logs', ['uuid' => $recent->uuid]);
+        $this->assertDatabaseMissing('developer_logs', ['uuid' => $recent->uuid]);
     }
 }

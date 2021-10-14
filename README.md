@@ -50,7 +50,7 @@ return [
      *
      * We will replace the uuid with the exception log uuid.
      */
-    'exception_log_base_url' => env('DEV_EXCEPTION_LOG_BASE_URL'),
+    'developer_log_base_url' => env('DEV_developer_log_base_url'),
 
     /**
      * The default notification class used to send notifications.
@@ -110,15 +110,15 @@ LaravelDeveloper::toDevSlack(
 
 ### Persist exception
 
-If you want to persist the exception into the database, in any place you want to catch and log an exception, you can do something like this: 
+If you want to persist the exception into the database, in any place you want to catch and log an exception, you can do something like this:
 
 ```php
-use Binarcode\LaravelDeveloper\Models\ExceptionLog;
+use Binarcode\LaravelDeveloper\Models\DeveloperLog;
 
 try {
     // Your custom code
 } catch (\Throwable $e) {
-    ExceptionLog::makeFromException($e)->save();
+    DeveloperLog::makeFromException($e)->save();
 }
 ```
 
@@ -143,12 +143,12 @@ You can specify payload to your exception, so it will be stored along with the e
 
 ```php
 use Laravel\Cashier\Exceptions\PaymentFailure;
-use Binarcode\LaravelDeveloper\Models\ExceptionLog;
+use Binarcode\LaravelDeveloper\Models\DeveloperLog;
 
 try {
     // Your custom code
 } catch (PaymentFailure $e) {
-ExceptionLog::makeFromException($e, $e->payment->asStripePaymentIntent())->notifyDevs();
+DeveloperLog::makeFromException($e, $e->payment->asStripePaymentIntent())->notifyDevs();
 }
 ```
 
@@ -369,6 +369,32 @@ devLog('Called Fedex API with:', $payload)
 
 Now you will have an entry in your database table with the payload and the associated name.
 
+### Attach target
+
+You can attach a target to your log, so it will relate to a model like this: 
+
+```php
+devLog('Model updated')->target($user);
+```
+
+Or if you need to attach many models, use: 
+
+```php
+devLog('Targetable')
+    ->addRelatedModel($user)
+    ->addRelatedModel($post)
+    ->save();
+```
+
+### Attach meta
+
+You also can attach meta data to your logs: 
+
+```php
+devLog('Targetable')
+    ->addMeta(['browser' => 'safari',])
+    ->save();
+```
 
 ## Telescope support
 

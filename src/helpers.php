@@ -1,10 +1,11 @@
 <?php
 
-use Binarcode\LaravelDeveloper\Notifications\DevLog;
+use Binarcode\LaravelDeveloper\Dtos\DevLogDto;
 use Binarcode\LaravelDeveloper\Notifications\Slack;
 use Binarcode\LaravelDeveloper\Profiling\ServerMemory;
 use Binarcode\LaravelDeveloper\Profiling\ServerTiming;
 use Binarcode\LaravelDeveloper\Telescope\TelescopeException;
+use Carbon\CarbonInterface;
 
 if (! function_exists('measure_memory')) {
     function measure_memory($callable = null, string $key = 'action', string $unit = 'mb')
@@ -50,9 +51,9 @@ if (! function_exists('slack')) {
 }
 
 if (! function_exists('devLog')) {
-    function devLog(...$args): DevLog
+    function devLog(...$args): DevLogDto
     {
-        return DevLog::make(...$args);
+        return DevLogDto::make(...$args);
     }
 }
 
@@ -61,6 +62,31 @@ if (! function_exists('telescopeException')) {
     {
         if (config('developer.interacts_telescope')) {
             TelescopeException::record($exception, $message);
+        }
+    }
+}
+
+if (! function_exists('americanDate')) {
+    function americanDate(CarbonInterface $date = null, string $format = 'm/d/Y', $default = null): string|Closure|null
+    {
+        try {
+            if (is_null($date)) {
+                if (! is_null($default)) {
+                    return $default;
+                }
+
+                return function (CarbonInterface $value = null) use ($format, $default) {
+                    if (is_null($value)) {
+                        return $default;
+                    }
+
+                    return $value->format($format);
+                };
+            }
+
+            return $date->format($format);
+        } catch (Exception) {
+            return $default;
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Binarcode\LaravelDeveloper\Tests\Models;
 
-use Binarcode\LaravelDeveloper\Models\ExceptionLog;
+use Binarcode\LaravelDeveloper\Models\DeveloperLog;
 use Binarcode\LaravelDeveloper\Tests\Mock\PayloadMock;
 use Binarcode\LaravelDeveloper\Tests\TestCase;
 use Exception;
@@ -11,23 +11,23 @@ class ExceptionLogTest extends TestCase
 {
     public function test_can_create_from_exception()
     {
-        ExceptionLog::makeFromException(
+        DeveloperLog::makeFromException(
             new Exception('wrong')
         )->save();
 
-        $this->assertDatabaseHas('exception_logs', [
+        $this->assertDatabaseHas('developer_logs', [
             'name' => 'wrong',
         ]);
     }
 
     public function test_can_serialize_payload()
     {
-        ExceptionLog::makeFromException(
+        DeveloperLog::makeFromException(
             new Exception('wrong'),
             $payload = new PayloadMock()
         )->save();
 
-        $this->assertDatabaseHas('exception_logs', [
+        $this->assertDatabaseHas('developer_logs', [
             'name' => 'wrong',
             'payload' => '{"message":"wew"}',
         ]);
@@ -35,7 +35,7 @@ class ExceptionLogTest extends TestCase
 
     public function test_can_serialize_multiple_payloads()
     {
-        ExceptionLog::makeFromException(
+        DeveloperLog::makeFromException(
             new Exception('wrong'),
         )
             ->addPayload(
@@ -46,7 +46,7 @@ class ExceptionLogTest extends TestCase
             )
             ->save();
 
-        $this->assertDatabaseHas('exception_logs', [
+        $this->assertDatabaseHas('developer_logs', [
             'name' => 'wrong',
             'payload' => json_encode([
                 $payload->jsonSerialize(),
@@ -58,13 +58,13 @@ class ExceptionLogTest extends TestCase
     public function test_can_generate_link()
     {
         config([
-            'developer.exception_log_base_url' => 'foo/{id}',
+            'developer.developer_log_base_url' => 'foo/{id}',
         ]);
 
-        $log = tap(ExceptionLog::makeFromException(
+        $log = tap(DeveloperLog::makeFromException(
             new Exception('wrong'),
             $payload = new PayloadMock()
-        ), function (ExceptionLog $log) {
+        ), function (DeveloperLog $log) {
             $log->save();
         });
 
