@@ -3,6 +3,7 @@
 namespace Binarcode\LaravelDeveloper\Models;
 
 use Binarcode\LaravelDeveloper\Dtos\DevLogDto;
+use Binarcode\LaravelDeveloper\Enums\TagEnum;
 use Binarcode\LaravelDeveloper\LaravelDeveloper;
 use Binarcode\LaravelDeveloper\Models\Concerns\WithCreator;
 use Binarcode\LaravelDeveloper\Models\Concerns\WithUuid;
@@ -37,9 +38,6 @@ class DeveloperLog extends Model
     use HasFactory;
     use WithUuid;
     use WithCreator;
-
-    public const TAG_DANGER = 'danger';
-    public const TAG_INFO = 'info';
 
     protected $table = 'developer_logs';
 
@@ -82,7 +80,7 @@ class DeveloperLog extends Model
             'exception' => $throwable->__toString(),
             'previous' => (string) $throwable->getPrevious(),
             'payload' => optional($payload)->jsonSerialize(),
-            'tags' => static::TAG_DANGER,
+            'tags' => TagEnum::danger,
         ]);
     }
 

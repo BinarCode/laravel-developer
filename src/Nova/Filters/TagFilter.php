@@ -2,7 +2,7 @@
 
 namespace Binarcode\LaravelDeveloper\Nova\Filters;
 
-use App\Domains\Developer\Models\ExceptionLog;
+use Binarcode\LaravelDeveloper\Enums\TagEnum;
 use Illuminate\Http\Request;
 use Laravel\Nova\Filters\Filter;
 
@@ -15,9 +15,6 @@ class TagFilter extends Filter
 
     public function options(Request $request)
     {
-        return [
-             'Error' => ExceptionLog::TAG_DANGER,
-             'Info' => ExceptionLog::TAG_INFO,
-        ];
+        return TagEnum::keyValue();
     }
 }
