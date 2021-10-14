@@ -1,9 +1,9 @@
-name: Static analyses.
+name: Check & fix styling
 
 on: [push]
 
 jobs:
-  analyses:
+  php-cs-fixer:
     runs-on: ubuntu-latest
 
     steps:
@@ -12,14 +12,12 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
 
-      - name: Run composer install
-        run: |
-          composer install
-
-      - name: Fix style
-        run: composer format
+      - name: Run PHP CS Fixer
+        uses: docker://oskarstark/php-cs-fixer-ga
+        with:
+          args: --config=.php_cs.dist.php --allow-risky=yes
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: Fix static analyses.
+          commit_message: Fix styling
