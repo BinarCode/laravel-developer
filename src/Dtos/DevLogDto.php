@@ -2,6 +2,7 @@
 
 namespace Binarcode\LaravelDeveloper\Dtos;
 
+use Binarcode\LaravelDeveloper\Enums\TagEnum;
 use Binarcode\LaravelDeveloper\Models\DeveloperLog;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -12,7 +13,7 @@ class DevLogDto
 
     public array $payload = [];
 
-    public ?string $tags;
+    public string $tags = TagEnum::info;
 
     public ?Model $target = null;
 
@@ -24,7 +25,7 @@ class DevLogDto
     {
         $this->payload = $payload ?? [];
         $this->name = $name;
-        $this->tags = $tags;
+        $this->tags = $tags ?? TagEnum::info;
         $this->relatedModels = collect();
         $this->meta = collect();
     }
