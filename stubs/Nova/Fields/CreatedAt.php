@@ -1,6 +1,8 @@
 <?php
 
-namespace Binarcode\LaravelDeveloper\Nova\Fields;
+namespace Nova\Fields;
+
+use function americanDate;
 
 class CreatedAt extends Line
 {

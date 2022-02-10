@@ -1,6 +1,6 @@
 <?php
 
-namespace Binarcode\LaravelDeveloper\Nova\Filters;
+namespace Nova\Filters;
 
 use Binarcode\LaravelDeveloper\Enums\TagEnum;
 use Illuminate\Http\Request;

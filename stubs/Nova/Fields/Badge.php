@@ -1,10 +1,10 @@
 <?php
 
-namespace Binarcode\LaravelDeveloper\Nova\Fields;
+namespace Nova\Fields;
 
 use Exception;
 
-class BadgeList extends \Laravel\Nova\Fields\Badge
+class Badge extends \Laravel\Nova\Fields\Badge
 {
     protected string $defaultType = 'info';
 

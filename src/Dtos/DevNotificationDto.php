@@ -9,14 +9,13 @@ use Throwable;
 /**
  * Class DevNotificationDto
  *
- * @property string message
- * @property string file
- * @property string line
- * @property string code
- *
- * @property string attachment_title
- * @property string attachment_link
- * @property string attachment_content
+ * @property string $message
+ * @property string $file
+ * @property string $line
+ * @property string $code
+ * @property string $attachment_title
+ * @property string $attachment_link
+ * @property string $attachment_content
  *
  * @package App\Models\Dto
  */

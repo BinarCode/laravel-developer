@@ -1,6 +1,6 @@
 <?php
 
-namespace Binarcode\LaravelDeveloper\Nova\Filters;
+namespace Nova\Filters;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Filters\DateFilter;

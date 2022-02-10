@@ -27,7 +27,8 @@
         "orchestra/testbench": "^7.0",
         "phpunit/phpunit": "^9.3",
         "symfony/stopwatch": "^4.4|^5.0",
-        "vimeo/psalm": "^4.3"
+        "nunomaduro/larastan": "^2.0",
+        "phpstan/extension-installer": "^1.1"
     },
     "autoload": {
         "psr-4": {
@@ -44,12 +45,15 @@
         }
     },
     "scripts": {
-        "psalm": "vendor/bin/psalm",
+        "analyse": "vendor/bin/phpstan analyse",
         "test": "vendor/bin/phpunit --colors=always",
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
     },
     "extra": {
         "laravel": {

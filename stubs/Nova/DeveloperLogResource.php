@@ -1,12 +1,8 @@
 <?php
 
-namespace Binarcode\LaravelDeveloper\Nova;
+namespace Nova;
 
 use Binarcode\LaravelDeveloper\Models\DeveloperLog;
-use Binarcode\LaravelDeveloper\Nova\Fields\Badge;
-use Binarcode\LaravelDeveloper\Nova\Fields\Line;
-use Binarcode\LaravelDeveloper\Nova\Filters\CreatedAtFilter;
-use Binarcode\LaravelDeveloper\Nova\Filters\TagFilter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Laravel\Nova\Fields\Code;
@@ -15,6 +11,11 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Stack;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Resource;
+use Nova\Fields\Badge;
+use Nova\Fields\Line;
+use Nova\Filters\CreatedAtFilter;
+use Nova\Filters\TagFilter;
+use function base_path;
 
 class DeveloperLogResource extends Resource
 {

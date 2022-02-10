@@ -1,6 +1,6 @@
 <?php
 
-namespace Binarcode\LaravelDeveloper\Nova\Fields;
+namespace Nova\Fields;
 
 use Exception;
 

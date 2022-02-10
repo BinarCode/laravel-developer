@@ -1,9 +1,11 @@
 <?php
 
-namespace Binarcode\LaravelDeveloper\Nova\Fields;
+namespace Nova\Fields;
 
 use Laravel\Nova\Fields\BelongsTo as NovaBelongsTo;
 use Laravel\Nova\Fields\ID;
+use function optional;
+use function request;
 
 class BelongsTo extends NovaBelongsTo
 {
