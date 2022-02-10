@@ -1,10 +1,11 @@
 <?php
 
-namespace Binarcode\LaravelDeveloper\Nova\Fields;
+namespace Nova\Fields;
 
 use Carbon\Carbon;
 use Exception;
 use Laravel\Nova\Fields\Badge;
+use function now;
 
 class ExpirationDateBadge extends Badge
 {

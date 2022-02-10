@@ -1,6 +1,6 @@
 <?php
 
-namespace Binarcode\LaravelDeveloper\Nova\Fields;
+namespace Nova\Fields;
 
 class Line extends \Laravel\Nova\Fields\Line
 {

@@ -10,6 +10,7 @@ use Binarcode\LaravelDeveloper\Models\Concerns\WithUuid;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use JsonSerializable;
 use Throwable;
@@ -31,6 +32,7 @@ use Throwable;
  * @property string $target_type
  * @property id $target_id
  * @property array|mixed $payload
+ * @property Carbon $created_at
  * @package App\Models
  */
 class DeveloperLog extends Model

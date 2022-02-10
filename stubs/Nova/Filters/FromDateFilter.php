@@ -1,15 +1,13 @@
 <?php
 
-namespace Binarcode\LaravelDeveloper\Nova\Filters;
+namespace Nova\Filters;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Filters\DateFilter;
 
-class CreatedAtFilter extends DateFilter
+class FromDateFilter extends DateFilter
 {
     private string $column;
-
-    public $name = 'Placed On';
 
     public function __construct($column = 'created_at')
     {
@@ -18,7 +16,7 @@ class CreatedAtFilter extends DateFilter
 
     public function apply(Request $request, $query, $value)
     {
-        return $query->whereDate($this->column, $value);
+        return $query->whereDate($this->column, '>=', $value);
     }
 
     public function setName(string $name): self
