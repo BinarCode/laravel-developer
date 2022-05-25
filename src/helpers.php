@@ -6,6 +6,7 @@ use Binarcode\LaravelDeveloper\Profiling\ServerMemory;
 use Binarcode\LaravelDeveloper\Profiling\ServerTiming;
 use Binarcode\LaravelDeveloper\Telescope\TelescopeException;
 use Carbon\CarbonInterface;
+use Illuminate\Support\Facades\App;
 
 if (! function_exists('measure_memory')) {
     function measure_memory($callable = null, string $key = 'action', string $unit = 'mb')
@@ -46,7 +47,11 @@ if (! function_exists('measure_timing')) {
 if (! function_exists('slack')) {
     function slack(...$args)
     {
-        return Slack::make($args);
+        if (! App::runningUnitTests()) {
+            return Slack::make($args);
+        }
+
+        return false;
     }
 }
 
