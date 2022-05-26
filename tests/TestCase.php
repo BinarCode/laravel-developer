@@ -5,7 +5,6 @@ namespace Binarcode\LaravelDeveloper\Tests;
 use Binarcode\LaravelDeveloper\LaravelDeveloperServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\App;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
