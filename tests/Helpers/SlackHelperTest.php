@@ -9,7 +9,6 @@ use Binarcode\LaravelDeveloper\Tests\Fixtures\DummyNotification;
 use Binarcode\LaravelDeveloper\Tests\TestCase;
 use Exception;
 use Illuminate\Notifications\AnonymousNotifiable;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Notification;
 
 class SlackHelperTest extends TestCase
@@ -17,10 +16,6 @@ class SlackHelperTest extends TestCase
     public function test_slack_helper_returns_laravel_developer_instance(): void
     {
         Notification::fake();
-
-        App::partialMock()
-            ->shouldReceive('environment')
-            ->andReturn('dev');
 
         $this->assertInstanceOf(Slack::class, slack());
         $this->assertInstanceOf(Slack::class, slack('message'));
@@ -30,10 +25,6 @@ class SlackHelperTest extends TestCase
     public function test_slack_helper_can_send_message_to_slack(): void
     {
         Notification::fake();
-
-        App::partialMock()
-            ->shouldReceive('environment')
-            ->andReturn('dev');
 
         $this->assertInstanceOf(Slack::class, slack('message'));
 
@@ -47,10 +38,6 @@ class SlackHelperTest extends TestCase
         config([
             'developer.developer_log_base_url' => 'app.test/{id}',
         ]);
-
-        App::partialMock()
-            ->shouldReceive('environment')
-            ->andReturn('dev');
 
         $this->assertInstanceOf(Slack::class, slack(new Exception('not found', 404))->persist());
 
@@ -67,7 +54,7 @@ class SlackHelperTest extends TestCase
             DevNotification::class,
             function (DevNotification $class) use ($uuid) {
                 return $class->notificationDto->attachment_link === "app.test/{$uuid}";
-            }
+            },
         );
     }
 
@@ -75,17 +62,13 @@ class SlackHelperTest extends TestCase
     {
         Notification::fake();
 
-        App::partialMock()
-            ->shouldReceive('environment')
-            ->andReturn('dev');
-
         config([
             'developer.developer_log_base_url' => 'app.test/{id}',
             'developer.slack_dev_hook' => 'https://test.com',
         ]);
 
         $this->assertInstanceOf(Slack::class, slack(
-            new DummyNotification()
+            new DummyNotification(),
         )->persist());
 
         Notification::assertSentTo(new AnonymousNotifiable(), DummyNotification::class);

@@ -57,8 +57,12 @@ class Slack
         return $this;
     }
 
-    private function send($item)
+    private function send($item): self
     {
+        if (! config('developer.slack_dev_enabled')) {
+            return $this;
+        }
+
         /**
          * @var string $class
          */

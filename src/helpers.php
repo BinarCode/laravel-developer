@@ -47,11 +47,7 @@ if (! function_exists('measure_timing')) {
 if (! function_exists('slack')) {
     function slack(...$args)
     {
-        if (! App::runningUnitTests()) {
-            return Slack::make($args);
-        }
-
-        return false;
+        return Slack::make($args);
     }
 }
 

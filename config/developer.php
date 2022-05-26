@@ -12,7 +12,12 @@ return [
     'model' => \Binarcode\LaravelDeveloper\Models\DeveloperLog::class,
 
     /**
-     * The slack incoming webhook to send notifications.
+     * Indicate whether to allow using slack helper.
+     */
+    'slack_dev_enabled' => env('SLACK_DEV_LOG_ENABLED', true),
+
+    /**
+     * The slack webhook to send notifications.
      */
     'slack_dev_hook' => env('SLACK_DEV_HOOK'),
 
