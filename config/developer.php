@@ -12,7 +12,7 @@ return [
     'model' => \Binarcode\LaravelDeveloper\Models\DeveloperLog::class,
 
     /**
-     * Indicate whether to allow using slack helper.
+     * Indicate whether to allow sending slack notifications and persist them.
      */
     'slack_dev_enabled' => env('SLACK_DEV_LOG_ENABLED', true),
 
