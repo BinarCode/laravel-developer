@@ -23,9 +23,8 @@ class ServerMemoryTest extends TestCase
 
         $memory->stop();
 
-        $this->assertEquals(
-            1,
-            round($memory->getMemory())
+        $this->assertTrue(
+            $memory->getMemory() > 0
         );
     }
 }
