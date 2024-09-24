@@ -61,6 +61,8 @@ return [
 
 Additionally, you must create a [Slack App](https://api.slack.com/apps?new_app=1) for your Slack workspace.
 
+If you only need to send notifications to the same Slack workspace that the App is created in, you should ensure that your App has the `chat:write`, `chat:write.public`, and `chat:write.customize` scopes. These scopes can be added from the "OAuth & Permissions" App management tab within Slack.
+
 ## Usage
 
 ### Send exception to slack
