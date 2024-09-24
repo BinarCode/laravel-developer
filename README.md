@@ -59,6 +59,8 @@ return [
 ];
 ```
 
+Additionally, you must create a [Slack App](https://api.slack.com/apps?new_app=1) for your Slack workspace.
+
 ## Usage
 
 ### Send exception to slack
