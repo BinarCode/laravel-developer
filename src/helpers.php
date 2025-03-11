@@ -67,7 +67,7 @@ if (! function_exists('telescopeException')) {
 }
 
 if (! function_exists('americanDate')) {
-    function americanDate(CarbonInterface $date = null, string $format = 'm/d/Y', $default = null): string|Closure|null
+    function americanDate(?CarbonInterface $date = null, string $format = 'm/d/Y', $default = null): string|Closure|null
     {
         try {
             if (is_null($date)) {
@@ -75,7 +75,7 @@ if (! function_exists('americanDate')) {
                     return $default;
                 }
 
-                return function (CarbonInterface $value = null) use ($format, $default) {
+                return function (?CarbonInterface $value = null) use ($format, $default) {
                     if (is_null($value)) {
                         return $default;
                     }
