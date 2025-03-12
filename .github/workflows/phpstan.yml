@@ -22,5 +22,9 @@ jobs:
       - name: Install composer dependencies
         uses: ramsey/composer-install@v2
 
+      - name: Install PHPStan
+        run: |
+          composer require --dev nunomaduro/larastan:^2.9.9 phpstan/extension-installer:^1.1 phpstan/phpstan-deprecation-rules:^1.0|^2.0 phpstan/phpstan-phpunit:^1.0|^2.0 --no-interaction
+
       - name: Run PHPStan
         run: ./vendor/bin/phpstan --error-format=github
