@@ -71,7 +71,7 @@ class DeveloperLog extends Model
         ]);
     }
 
-    public static function makeFromException(Throwable $throwable, JsonSerializable $payload = null): self
+    public static function makeFromException(Throwable $throwable, ?JsonSerializable $payload = null): self
     {
         return new static([
             'uuid' => (string) Str::uuid(),
