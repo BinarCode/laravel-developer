@@ -2,6 +2,16 @@
 
 All notable changes to `laravel-developer` will be documented in this file
 
+## 7.0.0 - 2026-03-30
+
+### Added
+
+- Support for Laravel 13 and PHP 8.5
+
+### Removed
+
+- Dropped Laravel 11, PHP 8.2 and PHP 8.3 support
+
 ## 6.1.0 - 2025-03-12
 
 ### Added
